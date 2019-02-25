@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class CustomSwipeAdapter extends PagerAdapter {
     private int [] images_ressources = {R.drawable.smiley_sad,R.drawable.smiley_disappointed,
@@ -24,7 +25,7 @@ public class CustomSwipeAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return false;
+        return (view == (LinearLayout)object) ;
     }
 
     @Override
@@ -39,6 +40,6 @@ public class CustomSwipeAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        super.destroyItem(container, position, object);
+        container.removeView((LinearLayout)object);
     }
 }
