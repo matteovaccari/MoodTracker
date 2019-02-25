@@ -12,6 +12,10 @@ public class CustomSwipeAdapter extends PagerAdapter {
     private Context ctx;
     private LayoutInflater layoutInflater;
 
+    public CustomSwipeAdapter(Context ctx) {
+        this.ctx = ctx;
+    }
+
     @Override
     public int getCount() {
         return 0;
