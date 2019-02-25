@@ -16,5 +16,6 @@ public class MainActivity extends AppCompatActivity {
         verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
         adapter = new CustomSwipeAdapter(this);
         verticalViewPager.setAdapter(adapter);
+        verticalViewPager.setCurrentItem(3);
     }
 }
