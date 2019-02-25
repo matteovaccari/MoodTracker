@@ -29,7 +29,7 @@ public class CustomSwipeAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        
+        View item_view = layoutInflater.inflate(R.layout.swipe_layout,container);
         return super.instantiateItem(container, position);
     }
 
