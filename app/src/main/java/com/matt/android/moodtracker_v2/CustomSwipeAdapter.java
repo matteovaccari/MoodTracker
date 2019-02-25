@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class CustomSwipeAdapter extends PagerAdapter {
+    private int [] images_ressources = {R.drawable.smiley_sad,R.drawable.smiley_disappointed,R.drawable.smiley_normal,R.drawable.smiley_happy,R.drawable.smiley_super_happy};
     @Override
     public int getCount() {
         return 0;
