@@ -1,13 +1,19 @@
 package com.matt.android.moodtracker_v2;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
+    private SharedPreferences mPreferences;
+    public static final String PREF_KEY_CURRENT_SMILEY ="PREF_KEY_CURRENT_SMILEY";
+    private int currentSmiley;
     VerticalViewPager verticalViewPager;
     CustomSwipeAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
             //Set default position when launching app to Happy Smiley (3)
         verticalViewPager.setCurrentItem(3);
+
+        mPreferences = getPreferences(MODE_PRIVATE);
+
+        verticalViewPager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               currentSmiley = verticalViewPager.getCurrentItem();
+               mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,currentSmiley);
+            }
+        });
     }
+
+
 }
