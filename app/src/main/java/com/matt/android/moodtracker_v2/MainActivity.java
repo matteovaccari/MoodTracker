@@ -13,9 +13,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+            //Link VerticalViewPager from id to variable
         verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
+
+            //Instanciate adapter then set it to verticalViewPager adapter attribute
         adapter = new CustomSwipeAdapter(this);
         verticalViewPager.setAdapter(adapter);
+
+            //Set default position when launching app to Happy Smiley (3)
         verticalViewPager.setCurrentItem(3);
     }
 }
