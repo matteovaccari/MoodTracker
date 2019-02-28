@@ -4,14 +4,17 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
+
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_CURRENT_SMILEY ="PREF_KEY_CURRENT_SMILEY";
     private int currentSmiley;
     VerticalViewPager verticalViewPager;
+    private Button historyButton;
     CustomSwipeAdapter adapter;
 
 
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-            //Link VerticalViewPager from id to variable
+        historyButton = (Button) findViewById(R.id.main_activity_history_button);
         verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
 
             //Instanciate adapter then set it to verticalViewPager adapter attribute
