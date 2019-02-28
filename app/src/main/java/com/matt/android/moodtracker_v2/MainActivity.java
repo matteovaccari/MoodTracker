@@ -1,5 +1,6 @@
 package com.matt.android.moodtracker_v2;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                currentSmiley = verticalViewPager.getCurrentItem();
                mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,currentSmiley);
+            }
+        });
+
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent historyActivityIntent = new Intent(MainActivity.this,MoodHistoryActivity.class);
+                startActivity(historyActivityIntent);
             }
         });
     }
