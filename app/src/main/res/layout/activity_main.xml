@@ -10,6 +10,16 @@
     <fr.castorflex.android.verticalviewpager.VerticalViewPager
     android:id="@+id/verticalviewpager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/main_activity_history_button"
+        android:layout_width="74dp"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginBottom="23dp"
+        android:background="@drawable/ic_history_black" />
 
 </RelativeLayout>
