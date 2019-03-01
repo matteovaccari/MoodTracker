@@ -14,6 +14,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
     private String currentSmileyString;
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
+    public static final String PREF_KEY = "PREF_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +23,14 @@ public class MoodHistoryActivity extends AppCompatActivity {
 
         currentSmileyTextView = (TextView) findViewById(R.id.currentsmiley_ID);
 
-        mPreferences = getPreferences(MODE_PRIVATE);
+        mPreferences = getApplicationContext().getSharedPreferences(PREF_KEY,0); //0 for private mode
 
+            //Get position from prefs
        currentSmileyInt = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50);
         Log.d("Keyname: ", String.valueOf(currentSmileyInt));
+            //Convert it from int to String
         currentSmileyString = Integer.toString(currentSmileyInt);
+            //Display it
         currentSmileyTextView.setText(currentSmileyString);
     }
 }
