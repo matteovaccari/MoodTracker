@@ -15,7 +15,7 @@ import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int currentSmiley;
+    private int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private Button historyButton;
     CustomSwipeAdapter adapter;
@@ -41,18 +41,17 @@ public class MainActivity extends AppCompatActivity {
         verticalViewPager.setCurrentItem(3);
 
         mPreferences = getApplicationContext().getSharedPreferences(PREF_KEY,0); //0 for private mode
-        final SharedPreferences.Editor editor = mPreferences.edit();
 
+            //Listener to get informed when user switch between smileys
        verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
             @Override
             public void onPageSelected(int position) {
-                currentSmiley=position;
+                currentSmileyPosition=position;
                 Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();
-                editor.putInt(PREF_KEY_CURRENT_SMILEY,currentSmiley); // Storing integer
-                editor.apply(); // commit changes
+                mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,currentSmileyPosition).apply(); //Storing position
 
             }
 
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
-       
+
         //Launch MoodHistoryActivity when history button is clicked
             historyButton.setOnClickListener(new View.OnClickListener() {
             @Override
