@@ -3,12 +3,15 @@ package com.matt.android.moodtracker_v2;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onPageSelected(int position) {
+                changeImage();
                 currentSmileyPosition=position;
                 Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();
                 mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,currentSmileyPosition).apply(); //Storing position
@@ -73,5 +77,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    void changeImage() {
+        ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
+        switch (currentSmileyPosition) {
+
+            case 0:
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+                break;
+
+            case 1:
+               constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.gray));
+                break;
+
+            case 2:
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.blue));
+                break;
+
+            case 3:
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.green));
+                break;
+
+            case 4:
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.yellow));
+                break;
+        }
+
+    }
 
 }
