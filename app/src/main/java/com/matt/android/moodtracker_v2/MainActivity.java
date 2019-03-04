@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onPageSelected(int position) {
-                changeImage();
                 currentSmileyPosition=position;
                 Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();
                 mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,currentSmileyPosition).apply(); //Storing position
+                changeImage();
 
             }
 
@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
     void changeImage() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
-        switch (currentSmileyPosition) {
+
+        switch (mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50)) {
 
             case 0:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.red));
