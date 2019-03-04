@@ -83,23 +83,23 @@ public class MainActivity extends AppCompatActivity {
         switch (mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50)) {
 
             case 0:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.faded_red));
                 break;
 
             case 1:
-               constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.gray));
+               constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.warm_grey));
                 break;
 
             case 2:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.blue));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.cornflower_blue_65));
                 break;
 
             case 3:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.green));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.light_sage));
                 break;
 
             case 4:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.yellow));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.banana_yellow));
                 break;
         }
 
