@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String PREF_KEY = "PREF_KEY";
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility") //OnTouchListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentSmileyPosition=position;
-                Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,currentSmileyPosition).apply(); //Storing position
-                changeImage();
+                changeBackGround();
 
             }
 
@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-    void changeImage() {
+        //Method who change background color and add little music note
+    void changeBackGround() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
 
         switch (mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50)) {
