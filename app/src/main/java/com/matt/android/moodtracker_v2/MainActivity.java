@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.PeriodicWorkRequest;
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
@@ -115,5 +118,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    PeriodicWorkRequest saveMood =
+            new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 25, TimeUnit.MINUTES)
+                    .build();
 
 }
