@@ -1,4 +1,4 @@
-package com.matt.android.moodtracker_v2;
+/**package com.matt.android.moodtracker_v2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,14 +21,20 @@ public class SaveMoodWorker extends Worker {
     @NonNull
     @Override
     public Worker.Result doWork() {
-        saveMoodAtMidnight();
+        saveMoodFromPrefs();
+        putMoodOnList();
         return Result.SUCCESS;
 
     }
 
-    public void saveMoodAtMidnight() {
+    public void saveMoodFromPrefs() {
         Context context = getApplicationContext();
         mPreferences = getApplicationContext().getSharedPreferences(PREF_KEY,0);
         lastDayMood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,15);
     }
+    public void putMoodOnList() {
+        mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,15);
+        //-- Here add a moodList.put(lastDayMood)
+    }
 }
+**/
