@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        PeriodicWorkRequest saveMood =
+                new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 25, TimeUnit.MINUTES).build();
 
     }
         //Method who change background color and add little music note
@@ -118,8 +119,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    PeriodicWorkRequest saveMood =
-            new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 25, TimeUnit.MINUTES)
-                    .build();
 
 }
