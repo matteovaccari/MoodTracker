@@ -1,9 +1,10 @@
-/**package com.matt.android.moodtracker_v2;
+package com.matt.android.moodtracker_v2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 
-import androidx.annotation.NonNull;
+
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -33,8 +34,7 @@ public class SaveMoodWorker extends Worker {
         lastDayMood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,15);
     }
     public void putMoodOnList() {
-        mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,15);
+        mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,lastDayMood);
         //-- Here add a moodList.put(lastDayMood)
     }
 }
-**/

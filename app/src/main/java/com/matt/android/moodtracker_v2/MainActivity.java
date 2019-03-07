@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
@@ -76,11 +78,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-     /**           //Instancied WorkRequest
-        PeriodicWorkRequest saveMood =
-                new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 25, TimeUnit.MINUTES).build();
+               //Instancied WorkRequest
+        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 25, TimeUnit.MINUTES).build();
                 //Queue the work
-        WorkManager.getInstance().enqueue(saveMood);  **/
+        WorkManager.getInstance().enqueue(saveMood);
 
     }
         //Method who change background color and add little music note
