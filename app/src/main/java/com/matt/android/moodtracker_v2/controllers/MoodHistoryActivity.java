@@ -1,4 +1,4 @@
-package com.matt.android.moodtracker_v2;
+package com.matt.android.moodtracker_v2.controllers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.matt.android.moodtracker_v2.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;

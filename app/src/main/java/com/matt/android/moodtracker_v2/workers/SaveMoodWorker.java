@@ -1,4 +1,4 @@
-package com.matt.android.moodtracker_v2;
+package com.matt.android.moodtracker_v2.workers;
 
 import android.content.Context;
 import android.content.SharedPreferences;

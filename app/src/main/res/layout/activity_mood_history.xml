@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/light_grey"
-    tools:context=".controllers.activities.HistoricActivity">
+    tools:context=".controllers.MoodHistoryActivity">
 
     <RelativeLayout
         android:id="@+id/activity_historic_day_seven"

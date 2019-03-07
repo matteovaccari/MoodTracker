@@ -1,4 +1,4 @@
-package com.matt.android.moodtracker_v2.view;
+package com.matt.android.moodtracker_v2.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;

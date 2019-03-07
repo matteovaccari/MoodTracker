@@ -1,4 +1,4 @@
-package com.matt.android.moodtracker_v2;
+package com.matt.android.moodtracker_v2.controllers;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.matt.android.moodtracker_v2.view.CustomSwipeAdapter;
+import com.matt.android.moodtracker_v2.R;
+import com.matt.android.moodtracker_v2.workers.SaveMoodWorker;
+import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
 
 import java.util.concurrent.TimeUnit;
 
