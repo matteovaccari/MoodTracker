@@ -5,15 +5,19 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 
+import java.util.ArrayList;
+
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 public class SaveMoodWorker extends Worker {
 
     int lastDayMood;
+    public static ArrayList<Integer> moodList = new ArrayList<>();
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
     public static final String PREF_KEY = "PREF_KEY";
+
 
     public SaveMoodWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -34,7 +38,6 @@ public class SaveMoodWorker extends Worker {
         lastDayMood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,15);
     }
     public void putMoodOnList() {
-        mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,lastDayMood);
-        //-- Here add a moodList.put(lastDayMood)
+        moodList.add(lastDayMood);
     }
 }
