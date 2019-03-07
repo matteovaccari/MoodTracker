@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
     public static final String PREF_KEY = "PREF_KEY";
 
-
     @SuppressLint("ClickableViewAccessibility") //OnTouchListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,31 +91,31 @@ public class MainActivity extends AppCompatActivity {
 
             case 0:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.faded_red));
-                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.sad_song);
+                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp.start();
                 break;
 
             case 1:
                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.warm_grey));
-                MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.disapointed_song);
+                MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp2.start();
                 break;
 
             case 2:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.cornflower_blue_65));
-                MediaPlayer mp3 = MediaPlayer.create(getApplicationContext(), R.raw.neutral_song);
+                MediaPlayer mp3 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp3.start();
                 break;
 
             case 3:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.light_sage));
-                MediaPlayer mp4 = MediaPlayer.create(getApplicationContext(), R.raw.happy_song);
+                MediaPlayer mp4 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp4.start();
                 break;
 
             case 4:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.banana_yellow));
-                MediaPlayer mp5 = MediaPlayer.create(getApplicationContext(), R.raw.super_happy_song);
+                MediaPlayer mp5 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp5.start();
                 break;
         }
