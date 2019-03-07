@@ -1,4 +1,4 @@
-package com.matt.android.moodtracker_v2;
+package com.matt.android.moodtracker_v2.view;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.matt.android.moodtracker_v2.R;
 
 public class CustomSwipeAdapter extends PagerAdapter {
 

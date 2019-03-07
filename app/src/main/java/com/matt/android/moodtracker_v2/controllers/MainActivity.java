@@ -9,11 +9,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.matt.android.moodtracker_v2.view.CustomSwipeAdapter;
 
 import java.util.concurrent.TimeUnit;
 
