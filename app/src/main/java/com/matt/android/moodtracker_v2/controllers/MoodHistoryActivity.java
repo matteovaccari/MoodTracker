@@ -13,11 +13,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matt.android.moodtracker_v2.R;
+import com.matt.android.moodtracker_v2.workers.SaveMoodWorker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 public class MoodHistoryActivity extends AppCompatActivity {
 
@@ -66,18 +71,21 @@ public class MoodHistoryActivity extends AppCompatActivity {
         mTextViewSix.setText(getString(R.string.day_6));
         mTextViewSeven.setText(getString(R.string.day_7));
 
+        //Instancied WorkRequest
+        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 1, TimeUnit.MINUTES).build();
+        //Queue the work
+        WorkManager.getInstance().enqueue(saveMood);
+
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
      // Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
         // Loop to display last 7 moods
-        Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 7; i++) {
-            calendar.add(Calendar.DAY_OF_WEEK,1);
-            this.displayMood(calendar.getTime(),layouts[i]);
+        for (int i = 0; i < 1; i++) {
+            this.displayMood(layouts[i]);
         }
     }
 
-    private void displayMood(Date date,RelativeLayout relativeLayout) {
+    public void displayMood(RelativeLayout relativeLayout) {
         // Change the width of the layout
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -89,11 +97,9 @@ public class MoodHistoryActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
 
-        //Get last Mood
-        mood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-15);
-
+        mood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,8);
         // If no mood, layout is still blank
-        if (mood == -15) {
+        if (mood == 8) {
             relativeLayout.setBackgroundColor(0);
         } else {
             // Set background color and fraction for each mood case
