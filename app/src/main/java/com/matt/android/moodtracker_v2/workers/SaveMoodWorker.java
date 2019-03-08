@@ -4,16 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
-
-import java.util.ArrayList;
+import com.matt.android.moodtracker_v2.controllers.MainActivity;
 
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 public class SaveMoodWorker extends Worker {
 
-    int lastDayMood;
-    public static ArrayList<Integer> moodList = new ArrayList<>();
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
     public static final String PREF_KEY = "PREF_KEY";
@@ -26,18 +23,16 @@ public class SaveMoodWorker extends Worker {
     @NonNull
     @Override
     public Worker.Result doWork() {
-        saveMoodFromPrefs();
-        putMoodOnList();
+        saveMoodInPrefs();
         return Result.SUCCESS;
-
     }
 
-    public void saveMoodFromPrefs() {
+    public void saveMoodInPrefs() {
         Context context = getApplicationContext();
         mPreferences = getApplicationContext().getSharedPreferences(PREF_KEY,0);
-        lastDayMood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,15);
-    }
-    public void putMoodOnList() {
-        moodList.add(lastDayMood);
+        mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,MainActivity.currentSmileyPosition).apply();
     }
 }
+
+
+
