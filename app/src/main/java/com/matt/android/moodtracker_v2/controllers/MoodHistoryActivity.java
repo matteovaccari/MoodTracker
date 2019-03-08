@@ -41,13 +41,14 @@ public class MoodHistoryActivity extends AppCompatActivity {
         RelativeLayout mDaySix = findViewById(R.id.activity_historic_day_six);
         RelativeLayout mDaySeven = findViewById(R.id.activity_historic_day_seven);
 
+        /*
         Button mButtonOne = findViewById(R.id.activity_historic_btn_one);
         Button mButtonTwo = findViewById(R.id.activity_historic_btn_two);
         Button mButtonThree = findViewById(R.id.activity_historic_btn_three);
         Button mButtonFour = findViewById(R.id.activity_historic_btn_four);
         Button mButtonFive = findViewById(R.id.activity_historic_btn_five);
         Button mButtonSix = findViewById(R.id.activity_historic_btn_six);
-        Button mButtonSeven = findViewById(R.id.activity_historic_btn_seven);
+        Button mButtonSeven = findViewById(R.id.activity_historic_btn_seven); */
 
         TextView mTextViewOne = findViewById(R.id.activity_historic_text_one);
         TextView mTextViewTwo = findViewById(R.id.activity_historic_text_two);
@@ -66,19 +67,17 @@ public class MoodHistoryActivity extends AppCompatActivity {
         mTextViewSeven.setText(getString(R.string.day_7));
 
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
-        Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
+     // Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
-        // Loop to display moods and comments in the seven past days
+        // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < 7; i++) {
-            calendar.add(Calendar.DAY_OF_WEEK, -1);
-            this.displayMood(calendar.getTime(), layouts[i]);
-           // this.displayComment(calendar.getTime(), buttons[i]);
+            calendar.add(Calendar.DAY_OF_WEEK,1);
+            this.displayMood(calendar.getTime(),layouts[i]);
         }
-
     }
 
-    private void displayMood(Date date, RelativeLayout relativeLayout) {
+    private void displayMood(Date date,RelativeLayout relativeLayout) {
         // Change the width of the layout
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -93,15 +92,15 @@ public class MoodHistoryActivity extends AppCompatActivity {
         //Get last Mood
         mood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-15);
 
-        // If there is no mood, there is nothing to display
+        // If no mood, layout is still blank
         if (mood == -15) {
             relativeLayout.setBackgroundColor(0);
         } else {
-            // Display mood width and color
+            // Set background color and fraction for each mood case
             switch (mood) {
                 case 0:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(width / 5,
-                            LinearLayout.LayoutParams.MATCH_PARENT, 1));
+                            LinearLayout.LayoutParams.WRAP_CONTENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.faded_red));
                     break;
                 case 1:
