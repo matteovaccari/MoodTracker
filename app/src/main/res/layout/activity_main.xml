@@ -22,7 +22,7 @@
     <Button
         android:id="@+id/main_activity_history_button"
         android:layout_width="0dp"
-        android:layout_height="52dp"
+        android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
