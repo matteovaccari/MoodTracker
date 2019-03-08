@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private Button historyButton;
+    private Button commentButton;
     CustomSwipeAdapter adapter;
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         historyButton = (Button) findViewById(R.id.main_activity_history_button);
+        commentButton = (Button) findViewById(R.id.main_activity_comment_button);
         verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
 
             //Instanciate adapter then set it to verticalViewPager adapter attribute
