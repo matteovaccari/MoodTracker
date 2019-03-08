@@ -25,7 +25,7 @@ import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int currentSmileyPosition;
+    public static int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private Button historyButton;
     private Button commentButton;
@@ -62,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 currentSmileyPosition=position;
                 Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
-                mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,currentSmileyPosition).apply(); //Storing position
                 changeBackGround();
-
             }
 
             @Override
@@ -80,11 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(historyActivityIntent);
             }
         });
-
-               //Instancied WorkRequest
-        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 25, TimeUnit.MINUTES).build();
-                //Queue the work
-        WorkManager.getInstance().enqueue(saveMood);
 
     }
         //Method who change background color and add little music note
