@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     void changeBackGround() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
 
-        switch (mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50)) {
+        switch (currentSmileyPosition) {
 
             case 0:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.faded_red));
