@@ -1,193 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/history_linear_layout"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@color/light_grey"
+tools:context=".controllers.MoodHistoryActivity">
+
+<RelativeLayout
+    android:id="@+id/activity_historic_day_seven"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/light_grey"
-    tools:context=".controllers.MoodHistoryActivity">
+    android:layout_weight="1">
 
-    <RelativeLayout
-        android:id="@+id/activity_historic_day_seven"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/activity_historic_text_seven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        tools:text="@string/day_7"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/activity_historic_text_seven"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            tools:text="@string/day_7"
-            android:textStyle="bold"/>
+    <Button
+        android:id="@+id/activity_historic_btn_seven"
+        android:visibility="gone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_comment_black_48px"/>
+</RelativeLayout>
 
-        <Button
-            android:id="@+id/activity_historic_btn_seven"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ic_comment_black_48px"/>
-    </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/activity_historic_day_six"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
-    <RelativeLayout
-        android:id="@+id/activity_historic_day_six"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/activity_historic_text_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        tools:text="@string/day_6"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/activity_historic_text_six"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            tools:text="@string/day_6"
-            android:textStyle="bold"/>
+    <Button
+        android:id="@+id/activity_historic_btn_six"
+        android:visibility="gone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_comment_black_48px"/>
+</RelativeLayout>
 
-        <Button
-            android:id="@+id/activity_historic_btn_six"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ic_comment_black_48px"/>
-    </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/activity_historic_day_five"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
-    <RelativeLayout
-        android:id="@+id/activity_historic_day_five"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/activity_historic_text_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        tools:text="@string/day_5"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/activity_historic_text_five"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            tools:text="@string/day_5"
-            android:textStyle="bold"/>
+    <Button
+        android:id="@+id/activity_historic_btn_five"
+        android:visibility="gone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_comment_black_48px"/>
+</RelativeLayout>
 
-        <Button
-            android:id="@+id/activity_historic_btn_five"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ic_comment_black_48px"/>
-    </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/activity_historic_day_four"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
-    <RelativeLayout
-        android:id="@+id/activity_historic_day_four"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/activity_historic_text_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        tools:text="@string/day_4"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/activity_historic_text_four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            tools:text="@string/day_4"
-            android:textStyle="bold"/>
+    <Button
+        android:id="@+id/activity_historic_btn_four"
+        android:visibility="gone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_comment_black_48px"/>
+</RelativeLayout>
 
-        <Button
-            android:id="@+id/activity_historic_btn_four"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ic_comment_black_48px"/>
-    </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/activity_historic_day_three"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
-    <RelativeLayout
-        android:id="@+id/activity_historic_day_three"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/activity_historic_text_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        tools:text="@string/day_3"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/activity_historic_text_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            tools:text="@string/day_3"
-            android:textStyle="bold"/>
+    <Button
+        android:id="@+id/activity_historic_btn_three"
+        android:visibility="gone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_comment_black_48px"/>
+</RelativeLayout>
 
-        <Button
-            android:id="@+id/activity_historic_btn_three"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ic_comment_black_48px"/>
-    </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/activity_historic_day_two"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
-    <RelativeLayout
-        android:id="@+id/activity_historic_day_two"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/activity_historic_text_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        tools:text="@string/day_2"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/activity_historic_text_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            tools:text="@string/day_2"
-            android:textStyle="bold"/>
+    <Button
+        android:id="@+id/activity_historic_btn_two"
+        android:visibility="gone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_comment_black_48px"/>
+</RelativeLayout>
 
-        <Button
-            android:id="@+id/activity_historic_btn_two"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ic_comment_black_48px"/>
-    </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/activity_historic_day_one"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
-    <RelativeLayout
-        android:id="@+id/activity_historic_day_one"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/activity_historic_text_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        tools:text="@string/day_1"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/activity_historic_text_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            tools:text="@string/day_1"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/activity_historic_btn_one"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ic_comment_black_48px"/>
-    </RelativeLayout>
+    <Button
+        android:id="@+id/activity_historic_btn_one"
+        android:visibility="gone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_comment_black_48px"/>
+</RelativeLayout>
 
 </LinearLayout>
