@@ -1,26 +1,25 @@
 package com.matt.android.moodtracker_v2.controllers;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
-import com.matt.android.moodtracker_v2.workers.SaveMoodWorker;
 import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
 
-import java.util.concurrent.TimeUnit;
-
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+           commentButton.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                  saveComment(MainActivity.this);
+               }
+           });
+
     }
         //Method who change background color and add little music note
     void changeBackGround() {
@@ -117,6 +123,26 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    public void saveComment(Context ctx) {
+          //Input message
+        final EditText inputComment = new EditText(ctx);
+
+        AlertDialog.Builder addcomment = new AlertDialog.Builder(MainActivity.this);
+        addcomment.setTitle("Add comment");
+        addcomment.setMessage("Please enter your feelings");
+        addcomment.setView(inputComment);
+        addcomment.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                    //Save input into comment(String)
+                String comment = String.valueOf(inputComment.getText());
+            }
+        });
+        addcomment.setNegativeButton("Cancel",null);
+        addcomment.create();
+        addcomment.show();
     }
 
 }
