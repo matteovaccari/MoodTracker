@@ -24,6 +24,7 @@ import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String comment;
     public static int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private Button historyButton;
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                     //Save input into comment(String)
-                String comment = String.valueOf(inputComment.getText());
+                comment = String.valueOf(inputComment.getText());
             }
         });
         addcomment.setNegativeButton("Cancel",null);
