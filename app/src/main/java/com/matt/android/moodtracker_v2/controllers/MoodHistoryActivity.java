@@ -80,7 +80,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
      // Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
         // Loop to display last 7 moods
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 7; i++) {
             this.displayMood(layouts[i]);
         }
     }
