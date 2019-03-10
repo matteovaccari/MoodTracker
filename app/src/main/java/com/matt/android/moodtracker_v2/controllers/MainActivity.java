@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                     //Save input into comment(String)
                 comment = String.valueOf(inputComment.getText());
+                Toast.makeText(MainActivity.this,"Comment saved",Toast.LENGTH_SHORT).show();
             }
         });
         addcomment.setNegativeButton("Cancel",null);
