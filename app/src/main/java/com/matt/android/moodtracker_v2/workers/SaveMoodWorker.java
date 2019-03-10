@@ -3,8 +3,10 @@ package com.matt.android.moodtracker_v2.workers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.controllers.MainActivity;
+import com.matt.android.moodtracker_v2.controllers.MoodHistoryActivity;
 
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -25,6 +27,7 @@ public class SaveMoodWorker extends Worker {
     @Override
     public Worker.Result doWork() {
         saveMoodInPrefs();
+       // Toast.makeText(getApplicationContext(),"Current Mood Saved",Toast.LENGTH_SHORT).show();
         return Result.SUCCESS;
     }
 
