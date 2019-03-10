@@ -70,11 +70,12 @@ public class MoodHistoryActivity extends AppCompatActivity {
         mTextViewFive.setText(getString(R.string.day_5));
         mTextViewSix.setText(getString(R.string.day_6));
         mTextViewSeven.setText(getString(R.string.day_7));
-/*
+
         //Instancied WorkRequest
-        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 1, TimeUnit.MINUTES).build();
+        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 15, TimeUnit.SECONDS).build();
         //Queue the work
-        WorkManager.getInstance().enqueue(saveMood); */
+        WorkManager.getInstance().enqueue(saveMood);
+
 
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
      // Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
@@ -96,8 +97,8 @@ public class MoodHistoryActivity extends AppCompatActivity {
         }
         int width = size.x;
         int height = size.y;
-mood = MainActivity.currentSmileyPosition;
-//        mood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,8);
+
+       mood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,8);
         // If no mood, layout is still blank
         if (mood == 8) {
             relativeLayout.setBackgroundColor(0);
