@@ -106,27 +106,27 @@ mood = MainActivity.currentSmileyPosition;
             switch (mood) {
                 case 0:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(width / 5,
-                            LinearLayout.LayoutParams.MATCH_PARENT, 0));
+                            LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.faded_red));
                     break;
                 case 1:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 2,
-                            LinearLayout.LayoutParams.MATCH_PARENT, 0));
+                            LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.warm_grey));
                     break;
                 case 2:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 3,
-                            LinearLayout.LayoutParams.MATCH_PARENT, 0));
+                            LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.cornflower_blue_65));
                     break;
                 case 3:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 4,
-                            LinearLayout.LayoutParams.MATCH_PARENT, 0));
+                            LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_sage));
                     break;
                 case 4:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(width,
-                            LinearLayout.LayoutParams.MATCH_PARENT, 0));
+                            LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
                     break;
             }
