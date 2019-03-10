@@ -27,7 +27,7 @@ public class SaveMoodWorker extends Worker {
     @Override
     public Worker.Result doWork() {
         saveMoodInPrefs();
-       // Toast.makeText(getApplicationContext(),"Current Mood Saved",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Current Mood Saved",Toast.LENGTH_SHORT).show();
         return Result.SUCCESS;
     }
 
