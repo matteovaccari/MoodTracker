@@ -30,7 +30,15 @@ public class MySharedPreferences {
             mPreferences.edit().putString(getMoodDate(date),mood.name()).apply();
     }
 
-    
+        //Return a mood for a specific date
+    public Mood getMood(Date date) {
+        String CurrentMood = mPreferences.getString(getMoodDate(date), null);
+            //Return a value only if there's one in history
+        if (CurrentMood != null) {
+            return Mood.valueOf(CurrentMood);
+        }
+        return null;
+    }
 
 
 }
