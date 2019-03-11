@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
+import com.matt.android.moodtracker_v2.models.MySharedPreferences;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
@@ -30,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Button historyButton;
     private Button commentButton;
     CustomSwipeAdapter adapter;
-    private SharedPreferences mPreferences;
-    public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
-    public static final String PREF_KEY_CURRENT_SMILEY_STATIC = "PREF_KEY_CURRENT_SMILEY_STATIC";
-    public static final String PREF_KEY = "PREF_KEY";
+    private MySharedPreferences mPreferences;
 
     @SuppressLint("ClickableViewAccessibility") //OnTouchListener
     @Override
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             //Set default position when launching app to Happy Smiley (3)
         verticalViewPager.setCurrentItem(3);
 
-        mPreferences = getApplicationContext().getSharedPreferences(PREF_KEY,0); //0 for private mode
+       mPreferences = new MySharedPreferences(getApplicationContext());
 
             //Listener to get informed when user switch between smileys
        verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentSmileyPosition=position;
-                mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY_STATIC,currentSmileyPosition).apply();
+                mPreferences.saveTemporaryMood(currentSmileyPosition);
                 Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackGround();
             }
