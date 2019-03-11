@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
@@ -30,6 +32,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
     public static final String PREF_KEY = "PREF_KEY";
+    public static final String WORK_REQUEST_TAG = "WORK_REQUEST_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +75,12 @@ public class MoodHistoryActivity extends AppCompatActivity {
         mTextViewSeven.setText(getString(R.string.day_7));
 
         //Instancied WorkRequest
-        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 15, TimeUnit.SECONDS).build();
+        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 20, TimeUnit.MINUTES)
+                .setConstraints(Constraints.NONE)
+                .addTag(WORK_REQUEST_TAG)
+                .build();
         //Queue the work
-        WorkManager.getInstance().enqueue(saveMood);
+        WorkManager.getInstance().enqueueUniquePeriodicWork(WORK_REQUEST_TAG,ExistingPeriodicWorkPolicy.REPLACE,saveMood);
 
 
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
