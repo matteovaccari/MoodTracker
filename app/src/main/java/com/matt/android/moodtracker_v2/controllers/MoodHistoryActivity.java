@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matt.android.moodtracker_v2.R;
+import com.matt.android.moodtracker_v2.models.MySharedPreferences;
 import com.matt.android.moodtracker_v2.workers.SaveMoodWorker;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import androidx.work.WorkManager;
 public class MoodHistoryActivity extends AppCompatActivity {
 
     private int mood;
-    private SharedPreferences mPreferences;
+    private MySharedPreferences mPreferences;
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
     public static final String PREF_KEY = "PREF_KEY";
     public static final String WORK_REQUEST_TAG = "WORK_REQUEST_TAG";
@@ -39,7 +40,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood_history);
 
-        mPreferences = getApplicationContext().getSharedPreferences(PREF_KEY, 0); //0 for private mode
+        mPreferences = new MySharedPreferences(getApplicationContext());
 
         RelativeLayout mDayOne = findViewById(R.id.activity_historic_day_one);
         RelativeLayout mDayTwo = findViewById(R.id.activity_historic_day_two);
@@ -75,7 +76,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         mTextViewSeven.setText(getString(R.string.day_7));
 
         //Instancied WorkRequest
-        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 20, TimeUnit.MINUTES)
+        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 16, TimeUnit.MINUTES)
                 .setConstraints(Constraints.NONE)
                 .addTag(WORK_REQUEST_TAG)
                 .build();
@@ -87,12 +88,15 @@ public class MoodHistoryActivity extends AppCompatActivity {
      // Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
         // Loop to display last 7 moods
+        Calendar calendar = Calendar.getInstance();
+
         for (int i = 0; i < 7; i++) {
-            this.displayMood(layouts[i]);
+            calendar.add(Calendar.DAY_OF_WEEK, -1);
+            this.displayMood(calendar.getTime(),layouts[i]);
         }
     }
 
-    public void displayMood(RelativeLayout relativeLayout) {
+    public void displayMood(Date date, RelativeLayout relativeLayout) {
         // Change the width of the layout
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -104,7 +108,8 @@ public class MoodHistoryActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
 
-       mood = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,8);
+        Log.e("TAG",mPreferences.getMood(date));
+         mood = mPreferences.getMoodPos();
         // If no mood, layout is still blank
         if (mood == 8) {
             relativeLayout.setBackgroundColor(0);
