@@ -25,13 +25,14 @@ import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 public class MainActivity extends AppCompatActivity {
 
     public static String comment;
-    public static int currentSmileyPosition;
+    public int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private Button historyButton;
     private Button commentButton;
     CustomSwipeAdapter adapter;
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
+    public static final String PREF_KEY_CURRENT_SMILEY_STATIC = "PREF_KEY_CURRENT_SMILEY_STATIC";
     public static final String PREF_KEY = "PREF_KEY";
 
     @SuppressLint("ClickableViewAccessibility") //OnTouchListener
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentSmileyPosition=position;
+                mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY_STATIC,currentSmileyPosition);
                 Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackGround();
             }
