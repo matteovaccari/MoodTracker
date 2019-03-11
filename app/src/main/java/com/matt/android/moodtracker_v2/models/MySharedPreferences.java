@@ -3,8 +3,6 @@ package com.matt.android.moodtracker_v2.models;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.matt.android.moodtracker_v2.controllers.MainActivity;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -13,7 +11,7 @@ public class MySharedPreferences {
 
     private SharedPreferences mPreferences;
     private int temporaryPos;
-    private String moodPositionInString;
+    private int moodPosition;
     public static final String PREF_KEY_NAME = "PREF_KEY_NAME";
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
     public static final String PREF_KEY_CURRENT_SMILEY_STATIC = "PREF_KEY_CURRENT_SMILEY_STATIC";
@@ -23,7 +21,7 @@ public class MySharedPreferences {
         mPreferences = context.getSharedPreferences(PREF_KEY_NAME,Context.MODE_PRIVATE);
     }
 
-    private String getMood(Date date) {
+    public String getMood(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy",Locale.FRANCE);
         return "Mood at "+ simpleDateFormat.format(date);
     }
@@ -33,13 +31,21 @@ public class MySharedPreferences {
         temporaryPos = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY_STATIC,-50);
             // Put in prefs actual smiley position as Today final position (CURRENT_SMILEY)
         mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,temporaryPos).apply();
-            //Put current Final Pos in String
-        moodPositionInString = String.valueOf(mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50));
-            //Put String in prefs with DATE + mood in String (position from 0 to 4)
-        mPreferences.edit().putString(getMood(date),moodPositionInString);
+            //Put final today pos in moodPosition var
+        moodPosition = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50);
+            //Put moodPos in prefs with DATE + mood (position from 0 to 4)
+        mPreferences.edit().putInt(getMood(date),moodPosition).apply();
     }
 
     public void saveComment(Date date, String comment) {
 
+    }
+
+    public void saveTemporaryMood(int temporaryPos) {
+        mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY_STATIC,temporaryPos).apply();
+    }
+
+    public int getMoodPos() {
+        return mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50);
     }
 }
