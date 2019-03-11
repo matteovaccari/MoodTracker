@@ -38,4 +38,8 @@ public class MySharedPreferences {
             //Put String in prefs with DATE + mood in String (position from 0 to 4)
         mPreferences.edit().putString(getMood(date),moodPositionInString);
     }
+
+    public void saveComment(Date date, String comment) {
+
+    }
 }
