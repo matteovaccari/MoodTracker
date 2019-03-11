@@ -9,6 +9,9 @@ import com.matt.android.moodtracker_v2.controllers.MainActivity;
 import com.matt.android.moodtracker_v2.controllers.MoodHistoryActivity;
 import com.matt.android.moodtracker_v2.models.MySharedPreferences;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -30,6 +33,7 @@ import androidx.work.WorkerParameters;
         @Override
         public Worker.Result doWork() {
             saveMoodInPrefs();
+            saveCommentInPrefs();
             return Result.SUCCESS;
         }
 
@@ -37,12 +41,17 @@ import androidx.work.WorkerParameters;
             Context context = getApplicationContext();
             mPreferences = new MySharedPreferences(getApplicationContext());
 
+            Date today = Calendar.getInstance().getTime();
 
-                //Take currentSmileyPos and comment (both static) and put them in SharedPrefs
-            temporaryPos = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY_STATIC,-50);
-            mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,temporaryPos).apply();
+            mPreferences.saveMood(today);
+
+        }
+
+        public void saveCommentInPrefs() {
+            mPreferences = new MySharedPreferences(getApplicationContext());
             //Comment have to be in prefs to not be deleted by dead of act
-            mPreferences.edit().putString(PREF_KEY_CURRENT_COMMENT,MainActivity.comment).apply();
+            // mPreferences.saveComment(date)
+          //  mPreferences.edit().putString(PREF_KEY_CURRENT_COMMENT,MainActivity.comment).apply();
         }
     }
 
