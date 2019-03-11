@@ -7,13 +7,14 @@ import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.controllers.MainActivity;
 import com.matt.android.moodtracker_v2.controllers.MoodHistoryActivity;
+import com.matt.android.moodtracker_v2.models.MySharedPreferences;
 
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
     public class SaveMoodWorker extends Worker {
 
-        private SharedPreferences mPreferences;
+        private MySharedPreferences mPreferences;
         private int temporaryPos;
         public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
         public static final String PREF_KEY_CURRENT_SMILEY_STATIC = "PREF_KEY_CURRENT_SMILEY_STATIC";
@@ -34,7 +35,9 @@ import androidx.work.WorkerParameters;
 
         public void saveMoodInPrefs() {
             Context context = getApplicationContext();
-            mPreferences = getApplicationContext().getSharedPreferences(PREF_KEY,0);
+            mPreferences = new MySharedPreferences(getApplicationContext());
+
+
                 //Take currentSmileyPos and comment (both static) and put them in SharedPrefs
             temporaryPos = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY_STATIC,-50);
             mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,temporaryPos).apply();
