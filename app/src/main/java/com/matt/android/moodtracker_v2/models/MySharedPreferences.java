@@ -20,21 +20,17 @@ public class MySharedPreferences {
         mPreferences = context.getSharedPreferences(PREF_KEY_NAME,Context.MODE_PRIVATE);
     }
 
+        //Get a date for moods at format dd/mm/yyyy
     public String getMoodDate(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy",Locale.FRANCE);
         return "Mood at "+ simpleDateFormat.format(date);
     }
-
-    public void saveMood(Date date) {
-            // Get actual smiley position
-        temporaryPos = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY_STATIC,-50);
-            // Put in prefs actual smiley position as Today final position (CURRENT_SMILEY)
-        mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY,temporaryPos).apply();
-            //Put final today pos in moodPosition var
-        moodPosition = mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50);
-            //Put moodPos in prefs with DATE + mood (position from 0 to 4)
-        mPreferences.edit().putInt(getMood(date),moodPosition).apply();
+        //Save in prefs a mood, with date as key (getMoodDate)
+    public void saveMood(Date date, Mood mood) {
+            mPreferences.edit().putString(getMoodDate(date),mood.name()).apply();
     }
+
+    
 
 
 }
