@@ -31,8 +31,6 @@ public class MoodHistoryActivity extends AppCompatActivity {
 
     private int mood;
     private MySharedPreferences mPreferences;
-    public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
-    public static final String PREF_KEY = "PREF_KEY";
     public static final String WORK_REQUEST_TAG = "WORK_REQUEST_TAG";
 
     @Override
@@ -108,10 +106,12 @@ public class MoodHistoryActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
 
+        Log.e("TAG3","date + time" + mPreferences.getMoodPosWithDate(date));
         Log.e("TAG",mPreferences.getMood(date));
          mood = mPreferences.getMoodPos();
+        Log.e("TAG2", String.valueOf(mPreferences.getMoodPos()));
         // If no mood, layout is still blank
-        if (mood == 8) {
+        if (mood == -50) {
             relativeLayout.setBackgroundColor(0);
         } else {
             // Set background color and fraction for each mood case
