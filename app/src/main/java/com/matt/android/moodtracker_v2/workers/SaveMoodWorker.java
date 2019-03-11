@@ -18,12 +18,6 @@ import androidx.work.WorkerParameters;
     public class SaveMoodWorker extends Worker {
 
         private MySharedPreferences mPreferences;
-        private int temporaryPos;
-        public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
-        public static final String PREF_KEY_CURRENT_SMILEY_STATIC = "PREF_KEY_CURRENT_SMILEY_STATIC";
-        public static final String PREF_KEY_CURRENT_COMMENT = "PREF_KEY_CURRENT_COMMENT";
-        public static final String PREF_KEY = "PREF_KEY";
-
 
         public SaveMoodWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
             super(context, workerParams);
