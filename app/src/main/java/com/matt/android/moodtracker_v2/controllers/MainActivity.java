@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onPageSelected(int position) {
-                currentSmileyPosition=position;
-                mPreferences.saveTemporaryMood(currentSmileyPosition);
+                currentSmileyPosition = position;
                 Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackGroundAndSaveMood();
             }
