@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matt.android.moodtracker_v2.R;
+import com.matt.android.moodtracker_v2.models.Mood;
 import com.matt.android.moodtracker_v2.models.MySharedPreferences;
 import com.matt.android.moodtracker_v2.workers.SaveMoodWorker;
 
@@ -106,35 +107,35 @@ public class MoodHistoryActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
 
-         mood = mPreferences.getMoodPos();
-        Log.e("TAG2", String.valueOf(mPreferences.getMoodPos()));
+        Mood mood = mPreferences.getMood(date);
+
         // If no mood, layout is still blank
-        if (mood == -50) {
+        if (mood == null) {
             relativeLayout.setBackgroundColor(0);
         } else {
             // Set background color and fraction for each mood case
             switch (mood) {
-                case 0:
+                case Sad:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(width / 5,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.faded_red));
                     break;
-                case 1:
+                case Disappointed:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 2,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.warm_grey));
                     break;
-                case 2:
+                case Normal:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 3,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.cornflower_blue_65));
                     break;
-                case 3:
+                case Happy:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 4,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_sage));
                     break;
-                case 4:
+                case SuperHappy:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(width,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
