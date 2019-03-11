@@ -16,12 +16,11 @@ public class MySharedPreferences {
     public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
     public static final String PREF_KEY_CURRENT_SMILEY_STATIC = "PREF_KEY_CURRENT_SMILEY_STATIC";
 
-        //Constructor
     public MySharedPreferences(Context context) {
         mPreferences = context.getSharedPreferences(PREF_KEY_NAME,Context.MODE_PRIVATE);
     }
 
-    public String getMood(Date date) {
+    public String getMoodDate(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy",Locale.FRANCE);
         return "Mood at "+ simpleDateFormat.format(date);
     }
@@ -37,15 +36,5 @@ public class MySharedPreferences {
         mPreferences.edit().putInt(getMood(date),moodPosition).apply();
     }
 
-    public void saveComment(Date date, String comment) {
 
-    }
-
-    public void saveTemporaryMood(int temporaryPos) {
-        mPreferences.edit().putInt(PREF_KEY_CURRENT_SMILEY_STATIC,temporaryPos).apply();
-    }
-
-    public int getMoodPos() {
-        return mPreferences.getInt(PREF_KEY_CURRENT_SMILEY,-50);
-    }
 }
