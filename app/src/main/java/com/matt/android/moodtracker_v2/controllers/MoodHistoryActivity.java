@@ -106,8 +106,6 @@ public class MoodHistoryActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
 
-        Log.e("TAG3","date + time" + mPreferences.getMoodPosWithDate(date));
-        Log.e("TAG",mPreferences.getMood(date));
          mood = mPreferences.getMoodPos();
         Log.e("TAG2", String.valueOf(mPreferences.getMoodPos()));
         // If no mood, layout is still blank
