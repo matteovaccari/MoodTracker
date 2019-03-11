@@ -19,7 +19,11 @@ import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
+import com.matt.android.moodtracker_v2.models.Mood;
 import com.matt.android.moodtracker_v2.models.MySharedPreferences;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 currentSmileyPosition=position;
                 mPreferences.saveTemporaryMood(currentSmileyPosition);
                 Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
-                changeBackGround();
+                changeBackGroundAndSaveMood();
             }
 
             @Override
@@ -88,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
         //Method who change background color and add little music note
-    void changeBackGround() {
+    void changeBackGroundAndSaveMood() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
+        Date today = Calendar.getInstance().getTime();
 
         switch (currentSmileyPosition) {
 
@@ -97,30 +102,35 @@ public class MainActivity extends AppCompatActivity {
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.faded_red));
                 MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp.start();
+                mPreferences.saveMood(today,Mood.Sad);
                 break;
 
             case 1:
                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.warm_grey));
                 MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp2.start();
+                mPreferences.saveMood(today,Mood.Disappointed);
                 break;
 
             case 2:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.cornflower_blue_65));
                 MediaPlayer mp3 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp3.start();
+                mPreferences.saveMood(today,Mood.Normal);
                 break;
 
             case 3:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.light_sage));
                 MediaPlayer mp4 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp4.start();
+                mPreferences.saveMood(today,Mood.Happy);
                 break;
 
             case 4:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.banana_yellow));
                 MediaPlayer mp5 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp5.start();
+                mPreferences.saveMood(today,Mood.SuperHappy);
                 break;
         }
 
