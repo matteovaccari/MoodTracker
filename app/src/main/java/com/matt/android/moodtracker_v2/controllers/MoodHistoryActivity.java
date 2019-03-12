@@ -151,7 +151,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         final String comment = mPreferences.getComment(date);
 
             //If there's a comment, show comment button + can display message with Toast message
-        if (!comment.isEmpty()) {
+        if (comment != null) {
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
