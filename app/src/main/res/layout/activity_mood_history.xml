@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/activity_historic_day_seven"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
@@ -37,7 +37,7 @@
     <RelativeLayout
         android:id="@+id/activity_historic_day_six"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
@@ -63,7 +63,7 @@
     <RelativeLayout
         android:id="@+id/activity_historic_day_five"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
@@ -89,7 +89,7 @@
     <RelativeLayout
         android:id="@+id/activity_historic_day_four"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
@@ -115,7 +115,7 @@
     <RelativeLayout
         android:id="@+id/activity_historic_day_three"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
@@ -141,7 +141,7 @@
     <RelativeLayout
         android:id="@+id/activity_historic_day_two"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
@@ -167,7 +167,7 @@
     <RelativeLayout
         android:id="@+id/activity_historic_day_one"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
