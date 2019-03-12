@@ -1,11 +1,8 @@
 package com.matt.android.moodtracker_v2.controllers;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
@@ -19,10 +16,8 @@ import com.matt.android.moodtracker_v2.models.Mood;
 import com.matt.android.moodtracker_v2.models.MySharedPreferences;
 import com.matt.android.moodtracker_v2.workers.SaveMoodWorker;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.Constraints;
@@ -32,7 +27,6 @@ import androidx.work.WorkManager;
 
 public class MoodHistoryActivity extends AppCompatActivity {
 
-    private int mood;
     private MySharedPreferences mPreferences;
     public static final String WORK_REQUEST_TAG = "WORK_REQUEST_TAG";
 
@@ -43,6 +37,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
 
         mPreferences = new MySharedPreferences(getApplicationContext());
 
+            //Each layout is a bar for each day
         RelativeLayout mDayOne = findViewById(R.id.activity_historic_day_one);
         RelativeLayout mDayTwo = findViewById(R.id.activity_historic_day_two);
         RelativeLayout mDayThree = findViewById(R.id.activity_historic_day_three);
@@ -51,7 +46,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         RelativeLayout mDaySix = findViewById(R.id.activity_historic_day_six);
         RelativeLayout mDaySeven = findViewById(R.id.activity_historic_day_seven);
 
-
+            //Buttons for displaying comments associated
         Button mButtonOne = findViewById(R.id.activity_historic_btn_one);
         Button mButtonTwo = findViewById(R.id.activity_historic_btn_two);
         Button mButtonThree = findViewById(R.id.activity_historic_btn_three);
@@ -60,6 +55,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         Button mButtonSix = findViewById(R.id.activity_historic_btn_six);
         Button mButtonSeven = findViewById(R.id.activity_historic_btn_seven);
 
+            //Each textview is a "bar" title for each day (yesterday, 3 days ago, etc)
         TextView mTextViewOne = findViewById(R.id.activity_historic_text_one);
         TextView mTextViewTwo = findViewById(R.id.activity_historic_text_two);
         TextView mTextViewThree = findViewById(R.id.activity_historic_text_three);
@@ -84,13 +80,12 @@ public class MoodHistoryActivity extends AppCompatActivity {
         //Queue the work
         WorkManager.getInstance().enqueueUniquePeriodicWork(WORK_REQUEST_TAG,ExistingPeriodicWorkPolicy.REPLACE,saveMood);
 
-
+            //Tabs for last 7 days + comments
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
         Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
         // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
-
         for (int i = 0; i < 7; i++) {
             calendar.add(Calendar.DAY_OF_WEEK, -1);
             this.displayMood(calendar.getTime(),layouts[i]);
@@ -108,8 +103,8 @@ public class MoodHistoryActivity extends AppCompatActivity {
             display.getSize(size);
         }
         int width = size.x;
-        int height = size.y;
 
+            //Get a mood from prefs to be displayed
         Mood mood = mPreferences.getMood(date);
 
         // If no mood, layout is still blank

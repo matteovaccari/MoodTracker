@@ -10,11 +10,7 @@ import java.util.Locale;
 public class MySharedPreferences {
 
     private SharedPreferences mPreferences;
-    private int temporaryPos;
-    private int moodPosition;
     public static final String PREF_KEY_NAME = "PREF_KEY_NAME";
-    public static final String PREF_KEY_CURRENT_SMILEY = "PREF_KEY_CURRENT_SMILEY";
-    public static final String PREF_KEY_CURRENT_SMILEY_STATIC = "PREF_KEY_CURRENT_SMILEY_STATIC";
 
     public MySharedPreferences(Context context) {
         mPreferences = context.getSharedPreferences(PREF_KEY_NAME,Context.MODE_PRIVATE);
