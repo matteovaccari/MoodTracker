@@ -89,6 +89,19 @@ public class MainActivity extends AppCompatActivity {
                }
            });
 
+           shareButton.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent shareIntent = new Intent (Intent.ACTION_SEND);
+                   shareIntent.setType("text/plain");
+                   Date today = Calendar.getInstance().getTime();
+                   String shareBody = "I'm feeling " + mPreferences.getMoodNameForSharing(currentSmileyPosition) + " today!";
+                   shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                   shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                   startActivity(Intent.createChooser(shareIntent, "Share via"));
+               }
+           });
+
     }
         //Method who change background color and add little music note
     void changeBackGroundAndSaveMood() {
