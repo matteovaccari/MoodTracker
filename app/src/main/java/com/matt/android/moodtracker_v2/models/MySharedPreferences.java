@@ -39,6 +39,17 @@ public class MySharedPreferences {
         }
         return null;
     }
+        //Same methods for comments
+    public String getCommentDate (Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+        return "Comment at " + simpleDateFormat.format(date);
+    }
 
+    public void saveComment (Date date, String comment) {
+        mPreferences.edit().putString(getMoodDate(date),comment).apply();
+    }
 
+    public String getComment (Date date) {
+        return mPreferences.getString(getCommentDate(date),null);
+    }
 }
