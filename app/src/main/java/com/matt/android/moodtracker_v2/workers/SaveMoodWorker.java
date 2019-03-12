@@ -19,7 +19,8 @@ import androidx.work.WorkerParameters;
     public class SaveMoodWorker extends Worker {
 
         private MySharedPreferences mPreferences;
-        private Mood mood;
+        private Mood todayMood;
+        private Mood finalTodayMood;
 
         public SaveMoodWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
             super(context, workerParams);
@@ -37,11 +38,29 @@ import androidx.work.WorkerParameters;
             Context context = getApplicationContext();
             mPreferences = new MySharedPreferences(getApplicationContext());
 
-          /*  Date today = Calendar.getInstance().getTime();
+           Date today = Calendar.getInstance().getTime();
             //Get Mood from today
-            mood = mPreferences.getMood(today);
-            //Put mood in prefs
-            mPreferences.saveMood(today, mood); */
+            todayMood = mPreferences.getMood(today);
+            //Save last mood into finalTodayMood
+                switch (todayMood) {
+                    case Sad:
+                        finalTodayMood = Mood.Sad;
+                        break;
+                    case Disappointed:
+                        finalTodayMood = Mood.Disappointed;
+                        break;
+                    case Normal:
+                        finalTodayMood = Mood.Normal;
+                        break;
+                    case Happy:
+                        finalTodayMood = Mood.Happy;
+                        break;
+                    case SuperHappy:
+                        finalTodayMood = Mood.SuperHappy;
+                        break;
+                }
+                //Put finalTodayMood in prefs
+            mPreferences.saveMood(today, finalTodayMood);
 
         }
 
