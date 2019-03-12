@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         //Method who change background color and add little music note
     void changeBackGroundAndSaveMood() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
-        Date today = Calendar.getInstance().getTime();
 
         switch (currentSmileyPosition) {
 
@@ -146,8 +145,11 @@ public class MainActivity extends AppCompatActivity {
         addcomment.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Date today = Calendar.getInstance().getTime();
                     //Save input into comment(String)
                 comment = String.valueOf(inputComment.getText());
+                    //Save comment into prefs with date as key
+                mPreferences.saveComment(today,comment);
                 Toast.makeText(MainActivity.this,"Comment saved",Toast.LENGTH_SHORT).show();
             }
         });
