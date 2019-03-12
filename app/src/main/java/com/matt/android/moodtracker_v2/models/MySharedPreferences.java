@@ -46,7 +46,7 @@ public class MySharedPreferences {
     }
 
     public void saveComment (Date date, String comment) {
-        mPreferences.edit().putString(getMoodDate(date),comment).apply();
+        mPreferences.edit().putString(getCommentDate(date),comment).apply();
     }
 
     public String getComment (Date date) {
