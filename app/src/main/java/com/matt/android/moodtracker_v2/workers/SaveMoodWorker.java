@@ -30,7 +30,6 @@ import androidx.work.WorkerParameters;
         @Override
         public Worker.Result doWork() {
             saveMoodInPrefs();
-            saveCommentInPrefs();
             return Result.SUCCESS;
         }
 
@@ -62,13 +61,6 @@ import androidx.work.WorkerParameters;
                 //Put finalTodayMood in prefs
             mPreferences.saveMood(today, finalTodayMood);
 
-        }
-
-        public void saveCommentInPrefs() {
-            mPreferences = new MySharedPreferences(getApplicationContext());
-            //Comment have to be in prefs to not be deleted by dead of act
-            // mPreferences.saveComment(date)
-            //  mPreferences.edit().putString(PREF_KEY_CURRENT_COMMENT,MainActivity.comment).apply();
         }
 
     }
