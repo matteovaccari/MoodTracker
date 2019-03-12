@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private Button historyButton;
+    private Button shareButton;
     private Button commentButton;
     CustomSwipeAdapter adapter;
     private MySharedPreferences mPreferences;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         historyButton = (Button) findViewById(R.id.main_activity_history_button);
         commentButton = (Button) findViewById(R.id.main_activity_comment_button);
+        shareButton = (Button) findViewById(R.id.main_activity_share_button);
         verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
 
             //Instanciate adapter then set it to verticalViewPager adapter attribute
