@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.models.Mood;
@@ -49,14 +51,14 @@ public class MoodHistoryActivity extends AppCompatActivity {
         RelativeLayout mDaySix = findViewById(R.id.activity_historic_day_six);
         RelativeLayout mDaySeven = findViewById(R.id.activity_historic_day_seven);
 
-        /*
+
         Button mButtonOne = findViewById(R.id.activity_historic_btn_one);
         Button mButtonTwo = findViewById(R.id.activity_historic_btn_two);
         Button mButtonThree = findViewById(R.id.activity_historic_btn_three);
         Button mButtonFour = findViewById(R.id.activity_historic_btn_four);
         Button mButtonFive = findViewById(R.id.activity_historic_btn_five);
         Button mButtonSix = findViewById(R.id.activity_historic_btn_six);
-        Button mButtonSeven = findViewById(R.id.activity_historic_btn_seven); */
+        Button mButtonSeven = findViewById(R.id.activity_historic_btn_seven);
 
         TextView mTextViewOne = findViewById(R.id.activity_historic_text_one);
         TextView mTextViewTwo = findViewById(R.id.activity_historic_text_two);
@@ -84,7 +86,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
 
 
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
-     // Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
+        Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
         // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
@@ -92,6 +94,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         for (int i = 0; i < 7; i++) {
             calendar.add(Calendar.DAY_OF_WEEK, -1);
             this.displayMood(calendar.getTime(),layouts[i]);
+            this.displayComment(calendar.getTime(),buttons[i]);
         }
     }
 
@@ -141,6 +144,24 @@ public class MoodHistoryActivity extends AppCompatActivity {
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
                     break;
             }
+        }
+    }
+
+    public void displayComment (Date date, Button button) {
+        final String comment = mPreferences.getComment(date);
+
+            //If there's a comment, show comment button + can display message with Toast message
+        if (!comment.isEmpty()) {
+            button.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),comment,Toast.LENGTH_SHORT).show();
+                }
+            });
+            //Else, button is hidden
+        } else {
+            button.setVisibility(View.INVISIBLE);
         }
     }
 }
