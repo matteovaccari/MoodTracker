@@ -101,35 +101,35 @@ public class MainActivity extends AppCompatActivity {
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.faded_red));
                 MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp.start();
-                mPreferences.saveMood(today,Mood.Sad);
+              //  mPreferences.saveMood(today,Mood.Sad);
                 break;
 
             case 1:
                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.warm_grey));
                 MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp2.start();
-                mPreferences.saveMood(today,Mood.Disappointed);
+             //   mPreferences.saveMood(today,Mood.Disappointed);
                 break;
 
             case 2:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.cornflower_blue_65));
                 MediaPlayer mp3 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp3.start();
-                mPreferences.saveMood(today,Mood.Normal);
+             //   mPreferences.saveMood(today,Mood.Normal);
                 break;
 
             case 3:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.light_sage));
                 MediaPlayer mp4 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp4.start();
-                mPreferences.saveMood(today,Mood.Happy);
+             //   mPreferences.saveMood(today,Mood.Happy);
                 break;
 
             case 4:
                 constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.banana_yellow));
                 MediaPlayer mp5 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp5.start();
-                mPreferences.saveMood(today,Mood.SuperHappy);
+              //  mPreferences.saveMood(today,Mood.SuperHappy);
                 break;
         }
 
