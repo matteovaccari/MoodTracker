@@ -41,7 +41,7 @@ public class CustomSwipeAdapter extends PagerAdapter {
         container.addView(item_view);
         return item_view;
     }
-    
+
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((LinearLayout)object);
