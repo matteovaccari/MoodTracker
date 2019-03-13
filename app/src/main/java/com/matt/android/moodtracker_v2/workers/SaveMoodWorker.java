@@ -1,12 +1,9 @@
 package com.matt.android.moodtracker_v2.workers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.controllers.MainActivity;
-import com.matt.android.moodtracker_v2.controllers.MoodHistoryActivity;
 import com.matt.android.moodtracker_v2.models.Mood;
 import com.matt.android.moodtracker_v2.models.MySharedPreferences;
 
@@ -19,7 +16,7 @@ import androidx.work.WorkerParameters;
     public class SaveMoodWorker extends Worker {
 
         private MySharedPreferences mPreferences;
-        private Mood todayMood;
+        private int todayMood;
         private Mood finalTodayMood;
 
         public SaveMoodWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -39,22 +36,22 @@ import androidx.work.WorkerParameters;
 
            Date today = Calendar.getInstance().getTime();
             //Get Mood from today
-            todayMood = mPreferences.getMood(today);
+            todayMood = MainActivity.currentSmileyPosition;
             //Save last mood into finalTodayMood
                 switch (todayMood) {
-                    case Sad:
+                    case 0:
                         finalTodayMood = Mood.Sad;
                         break;
-                    case Disappointed:
+                    case 1:
                         finalTodayMood = Mood.Disappointed;
                         break;
-                    case Normal:
+                    case 2:
                         finalTodayMood = Mood.Normal;
                         break;
-                    case Happy:
+                    case 3:
                         finalTodayMood = Mood.Happy;
                         break;
-                    case SuperHappy:
+                    case 4:
                         finalTodayMood = Mood.SuperHappy;
                         break;
                 }
