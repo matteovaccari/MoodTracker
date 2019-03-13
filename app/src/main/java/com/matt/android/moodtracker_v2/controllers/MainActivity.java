@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 currentSmileyPosition = position;
           // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
-                changeBackGroundAndSaveMood();
+                changeBackGround();
             }
 
             @Override
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
         //Method who change background color and add little music note
-    void changeBackGroundAndSaveMood() {
+    void changeBackGround() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
 
         switch (currentSmileyPosition) {

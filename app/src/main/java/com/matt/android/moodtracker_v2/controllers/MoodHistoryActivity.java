@@ -87,7 +87,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < 7; i++) {
-            calendar.add(Calendar.DAY_OF_WEEK, -1);
+            calendar.add(Calendar.DAY_OF_WEEK, -1); //Subtract one day from calendar (yesterday)
             this.displayMood(calendar.getTime(),layouts[i]);
             this.displayComment(calendar.getTime(),buttons[i]);
         }
