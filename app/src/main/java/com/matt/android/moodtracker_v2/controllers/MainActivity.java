@@ -28,7 +28,7 @@ import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 public class MainActivity extends AppCompatActivity {
 
     public String comment;
-    public int currentSmileyPosition;
+    public static int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private Button historyButton;
     private Button shareButton;
