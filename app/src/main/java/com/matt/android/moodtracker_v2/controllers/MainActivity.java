@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
@@ -30,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     public String comment;
     public static int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
-    private Button historyButton;
-    private Button shareButton;
-    private Button commentButton;
+    private ImageButton historyButton;
+    private ImageButton shareButton;
+    private ImageButton commentButton;
     CustomSwipeAdapter adapter;
     private MySharedPreferences mPreferences;
 
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        historyButton = (Button) findViewById(R.id.main_activity_history_button);
-        commentButton = (Button) findViewById(R.id.main_activity_comment_button);
-        shareButton = (Button) findViewById(R.id.main_activity_share_button);
+        historyButton = (ImageButton) findViewById(R.id.main_activity_history_button);
+        commentButton = (ImageButton) findViewById(R.id.main_activity_comment_button);
+        shareButton = (ImageButton) findViewById(R.id.main_activity_share_button);
         verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
 
             //Instanciate adapter then set it to verticalViewPager adapter attribute
