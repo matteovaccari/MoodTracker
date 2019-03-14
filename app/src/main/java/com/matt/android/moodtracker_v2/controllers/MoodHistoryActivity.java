@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,13 +48,13 @@ public class MoodHistoryActivity extends AppCompatActivity {
         RelativeLayout mDaySeven = findViewById(R.id.activity_historic_day_seven);
 
             //Buttons for displaying comments associated
-        Button mButtonOne = findViewById(R.id.activity_historic_btn_one);
-        Button mButtonTwo = findViewById(R.id.activity_historic_btn_two);
-        Button mButtonThree = findViewById(R.id.activity_historic_btn_three);
-        Button mButtonFour = findViewById(R.id.activity_historic_btn_four);
-        Button mButtonFive = findViewById(R.id.activity_historic_btn_five);
-        Button mButtonSix = findViewById(R.id.activity_historic_btn_six);
-        Button mButtonSeven = findViewById(R.id.activity_historic_btn_seven);
+        ImageButton mButtonOne = findViewById(R.id.activity_historic_btn_one);
+        ImageButton mButtonTwo = findViewById(R.id.activity_historic_btn_two);
+        ImageButton mButtonThree = findViewById(R.id.activity_historic_btn_three);
+        ImageButton mButtonFour = findViewById(R.id.activity_historic_btn_four);
+        ImageButton mButtonFive = findViewById(R.id.activity_historic_btn_five);
+        ImageButton mButtonSix = findViewById(R.id.activity_historic_btn_six);
+        ImageButton mButtonSeven = findViewById(R.id.activity_historic_btn_seven);
 
             //Each textview is a "bar" title for each day (yesterday, 3 days ago, etc)
         TextView mTextViewOne = findViewById(R.id.activity_historic_text_one);
@@ -73,7 +74,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         mTextViewSeven.setText(getString(R.string.day_7));
 
         //Instancied WorkRequest
-        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 16, TimeUnit.MINUTES)
+        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 2, TimeUnit.HOURS)
                 .setConstraints(Constraints.NONE)
                 .addTag(WORK_REQUEST_TAG)
                 .build();
@@ -82,7 +83,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
 
             //Tabs for last 7 days + comments
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
-        Button[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
+        ImageButton[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
         // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
@@ -142,7 +143,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         }
     }
 
-    public void displayComment (Date date, Button button) {
+    public void displayComment (Date date, ImageButton button) {
         final String comment = mPreferences.getComment(date);
 
             //If there's a comment, show comment button + can display message with Toast message
