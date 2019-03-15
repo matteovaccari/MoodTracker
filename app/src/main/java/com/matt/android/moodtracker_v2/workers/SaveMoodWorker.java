@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.matt.android.moodtracker_v2.controllers.MainActivity;
 import com.matt.android.moodtracker_v2.models.Mood;
-import com.matt.android.moodtracker_v2.models.MySharedPreferences;
+import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 
 import java.util.Calendar;
 import java.util.Date;

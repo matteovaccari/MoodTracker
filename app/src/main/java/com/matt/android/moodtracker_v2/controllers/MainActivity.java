@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
 import com.matt.android.moodtracker_v2.models.Mood;
-import com.matt.android.moodtracker_v2.models.MySharedPreferences;
+import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 
 import java.util.Calendar;
 import java.util.Date;

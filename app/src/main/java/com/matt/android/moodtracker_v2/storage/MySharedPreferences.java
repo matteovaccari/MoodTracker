@@ -1,7 +1,9 @@
-package com.matt.android.moodtracker_v2.models;
+package com.matt.android.moodtracker_v2.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.matt.android.moodtracker_v2.models.Mood;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
