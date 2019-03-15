@@ -40,19 +40,19 @@ import androidx.work.WorkerParameters;
             //Save last mood into finalTodayMood
                 switch (todayMood) {
                     case 0:
-                        finalTodayMood = Mood.Sad;
+                        finalTodayMood = MainActivity.sadMood;
                         break;
                     case 1:
-                        finalTodayMood = Mood.Disappointed;
+                        finalTodayMood = MainActivity.disappointedMood;
                         break;
                     case 2:
-                        finalTodayMood = Mood.Normal;
+                        finalTodayMood = MainActivity.normalMood;
                         break;
                     case 3:
-                        finalTodayMood = Mood.Happy;
+                        finalTodayMood = MainActivity.happyMood;
                         break;
                     case 4:
-                        finalTodayMood = Mood.SuperHappy;
+                        finalTodayMood = MainActivity.superHappyMood;
                         break;
                 }
                 //Put finalTodayMood in prefs
