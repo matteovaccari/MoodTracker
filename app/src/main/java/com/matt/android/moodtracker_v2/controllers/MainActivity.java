@@ -12,13 +12,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
+import com.matt.android.moodtracker_v2.models.Mood;
 import com.matt.android.moodtracker_v2.models.MySharedPreferences;
 
 import java.util.Calendar;
@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton commentButton;
     CustomSwipeAdapter adapter;
     private MySharedPreferences mPreferences;
+    public static Mood sadMood;
+    public static Mood disappointedMood;
+    public static Mood normalMood;
+    public static Mood happyMood;
+    public static Mood superHappyMood;
+    public static Mood currentMood;
 
     @SuppressLint("ClickableViewAccessibility") //OnTouchListener
     @Override
@@ -55,16 +61,23 @@ public class MainActivity extends AppCompatActivity {
             //Set default position when launching app to Happy Smiley (3)
         verticalViewPager.setCurrentItem(3);
 
-       mPreferences = new MySharedPreferences(getApplicationContext());
+        sadMood = new Mood("Sad", R.color.faded_red,0);
+        disappointedMood = new Mood("Dissapointed", R.color.warm_grey,1);
+        normalMood = new Mood("Normal", R.color.cornflower_blue_65, 2);
+        happyMood = new Mood ("Happy", R.color.light_sage,3);
+        superHappyMood = new Mood ("Super Happy", R.color.banana_yellow,4);
+
+        mPreferences = new MySharedPreferences(getApplicationContext());
 
             //Listener to get informed when user switch between smileys
-       verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+        verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
             @Override
             public void onPageSelected(int position) {
                 currentSmileyPosition = position;
+                setCurrentMood(position);
           // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackGround();
             }
@@ -111,31 +124,31 @@ public class MainActivity extends AppCompatActivity {
         switch (currentSmileyPosition) {
 
             case 0:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.faded_red));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
                 MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp.start();
                 break;
 
             case 1:
-               constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.warm_grey));
+               constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
                 MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp2.start();
                 break;
 
             case 2:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.cornflower_blue_65));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
                 MediaPlayer mp3 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp3.start();
                 break;
 
             case 3:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.light_sage));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
                 MediaPlayer mp4 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp4.start();
                 break;
 
             case 4:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.banana_yellow));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
                 MediaPlayer mp5 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp5.start();
                 break;
@@ -165,6 +178,26 @@ public class MainActivity extends AppCompatActivity {
         addcomment.setNegativeButton("Cancel",null);
         addcomment.create();
         addcomment.show();
+    }
+
+    public void setCurrentMood(int position) {
+        switch (position) {
+            case 0:
+                currentMood = sadMood;
+                break;
+            case 1:
+                currentMood = disappointedMood;
+                break;
+            case 2:
+                currentMood = normalMood;
+                break;
+            case 3:
+                currentMood = happyMood;
+                break;
+            case 4:
+                currentMood = superHappyMood;
+                break;
+        }
     }
 
 }
