@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
+import com.matt.android.moodtracker_v2.models.HistoryItem;
 import com.matt.android.moodtracker_v2.models.Mood;
 import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 
@@ -61,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
             //Set default position when launching app to Happy Smiley (3)
         verticalViewPager.setCurrentItem(3);
 
-        sadMood = new Mood("Sad", R.color.faded_red,0);
-        disappointedMood = new Mood("Dissapointed", R.color.warm_grey,1);
-        normalMood = new Mood("Normal", R.color.cornflower_blue_65, 2);
-        happyMood = new Mood ("Happy", R.color.light_sage,3);
-        superHappyMood = new Mood ("Super Happy", R.color.banana_yellow,4);
+        sadMood = new Mood("Sad", 0);
+        disappointedMood = new Mood("Dissapointed",1);
+        normalMood = new Mood("Normal", 2);
+        happyMood = new Mood ("Happy",3);
+        superHappyMood = new Mood ("Super Happy", 4);
 
         mPreferences = new MySharedPreferences(getApplicationContext());
 
@@ -124,31 +125,31 @@ public class MainActivity extends AppCompatActivity {
         switch (currentSmileyPosition) {
 
             case 0:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.sadSmileyBackground));
                 MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp.start();
                 break;
 
             case 1:
-               constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
+               constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.disappointedSmileyBackground));
                 MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp2.start();
                 break;
 
             case 2:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.normalSmileyBackground));
                 MediaPlayer mp3 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp3.start();
                 break;
 
             case 3:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this,  HistoryItem.happySmileyBackground));
                 MediaPlayer mp4 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp4.start();
                 break;
 
             case 4:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, currentMood.getBackgroundColor()));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.superHappySmileyBackground));
                 MediaPlayer mp5 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp5.start();
                 break;
