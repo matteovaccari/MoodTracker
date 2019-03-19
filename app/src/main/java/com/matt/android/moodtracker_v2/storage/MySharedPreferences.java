@@ -3,7 +3,6 @@ package com.matt.android.moodtracker_v2.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.models.Mood;
 
 import java.text.SimpleDateFormat;
@@ -69,7 +68,7 @@ public class MySharedPreferences {
                 moodInStringForShare = "happy";
                 break;
             case 4:
-                moodInStringForShare = "supper happy";
+                moodInStringForShare = "super happy";
                 break;
         }
         return moodInStringForShare;

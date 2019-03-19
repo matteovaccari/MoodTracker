@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.models.HistoryItem;
-import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 
 public class CustomSwipeAdapter extends PagerAdapter {
 
