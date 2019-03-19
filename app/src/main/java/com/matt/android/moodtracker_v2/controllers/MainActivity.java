@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public static Mood normalMood;
     public static Mood happyMood;
     public static Mood superHappyMood;
-    public static Mood currentMood;
 
     @SuppressLint("ClickableViewAccessibility") //OnTouchListener
     @Override
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentSmileyPosition = position;
-                setCurrentMood(position);
           // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackGround();
             }
@@ -181,24 +179,5 @@ public class MainActivity extends AppCompatActivity {
         addcomment.show();
     }
 
-    public void setCurrentMood(int position) {
-        switch (position) {
-            case 0:
-                currentMood = sadMood;
-                break;
-            case 1:
-                currentMood = disappointedMood;
-                break;
-            case 2:
-                currentMood = normalMood;
-                break;
-            case 3:
-                currentMood = happyMood;
-                break;
-            case 4:
-                currentMood = superHappyMood;
-                break;
-        }
-    }
 
 }
