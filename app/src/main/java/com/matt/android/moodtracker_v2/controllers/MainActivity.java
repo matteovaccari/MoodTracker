@@ -31,8 +31,10 @@ import com.matt.android.moodtracker_v2.models.HistoryItem;
 import com.matt.android.moodtracker_v2.models.Mood;
 import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public static Mood normalMood;
     public static Mood happyMood;
     public static Mood superHappyMood;
+    private List<Mood> moodList = new ArrayList<>();
     private Integer[] backGroundColors = {R.color.faded_red, R.color.warm_grey, R.color.cornflower_blue_65, R.color.light_sage, R.color.banana_yellow};
     private Integer[] smileysImages = {R.drawable.smiley_sad, R.drawable.smiley_disappointed, R.drawable.smiley_normal, R.drawable.smiley_happy, R.drawable.smiley_super_happy};
 
@@ -70,11 +73,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CustomSwipeAdapter(this);
         verticalViewPager.setAdapter(adapter);
 
-        sadMood = new Mood("Sad", 0, backGroundColors[0], smileysImages[0]);
-        disappointedMood = new Mood("Dissapointed", 1, backGroundColors[1], smileysImages[1]);
-        normalMood = new Mood("Normal", 2, backGroundColors[2], smileysImages[2]);
-        happyMood = new Mood("Happy", 3, backGroundColors[3], smileysImages[3]);
-        superHappyMood = new Mood("Super Happy", 4, backGroundColors[4], smileysImages[4]);
+        createMoods();
 
         mPreferences = new MySharedPreferences(getApplicationContext());
         Date today = Calendar.getInstance().getTime();
@@ -206,6 +205,14 @@ public class MainActivity extends AppCompatActivity {
         constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, mood.getBackgroundColor()));
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.pop);
         mp.start();
+    }
+
+    public void createMoods() {
+        moodList.add(sadMood = new Mood("Sad", 0, backGroundColors[0], smileysImages[0]));
+        moodList.add(disappointedMood = new Mood("Dissapointed", 1, backGroundColors[1], smileysImages[1]));
+        moodList.add(normalMood = new Mood("Normal", 2, backGroundColors[2], smileysImages[2]));
+        moodList.add(happyMood = new Mood("Happy", 3, backGroundColors[3], smileysImages[3]));
+        moodList.add(superHappyMood = new Mood("Super Happy", 4, backGroundColors[4], smileysImages[4]));
     }
 }
 
