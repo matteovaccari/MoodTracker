@@ -22,16 +22,13 @@ public class Mood {
         setSmiley(smiley);
     }
 
+
     public int getBackgroundColor() {
         return backgroundColor;
     }
 
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
-    }
-
-    public int getSmiley() {
-        return smiley;
     }
 
     public void setSmiley(int smiley) {
@@ -49,4 +46,8 @@ public class Mood {
     public void setPosition(int position) {
         this.position = position;
     }
+    public int getPosition() {
+        return position;
+    }
+
 }
