@@ -19,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     public static Mood happyMood;
     public static Mood superHappyMood;
     private Integer[] backGroundColors = {R.color.faded_red, R.color.warm_grey, R.color.cornflower_blue_65, R.color.light_sage, R.color.banana_yellow};
-    private Integer[] smileysImages = {R.drawable.smiley_sad,R.drawable.smiley_disappointed, R.drawable.smiley_normal, R.drawable.smiley_happy, R.drawable.smiley_super_happy};
+    private Integer[] smileysImages = {R.drawable.smiley_sad, R.drawable.smiley_disappointed, R.drawable.smiley_normal, R.drawable.smiley_happy, R.drawable.smiley_super_happy};
 
     @SuppressLint("ClickableViewAccessibility") //OnTouchListener
     @Override
@@ -69,18 +70,16 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CustomSwipeAdapter(this);
         verticalViewPager.setAdapter(adapter);
 
-        //Set default position when launching app to Happy Smiley (3)
-        verticalViewPager.setCurrentItem(3);
-        //Save default mood as Happy if nothing is done
-        saveMood(3);
-
-        sadMood = new Mood("Sad", 0);
-        disappointedMood = new Mood("Dissapointed", 1);
-        normalMood = new Mood("Normal", 2);
-        happyMood = new Mood("Happy", 3);
-        superHappyMood = new Mood("Super Happy", 4);
+        sadMood = new Mood("Sad", 0, backGroundColors[0], smileysImages[0]);
+        disappointedMood = new Mood("Dissapointed", 1, backGroundColors[1], smileysImages[1]);
+        normalMood = new Mood("Normal", 2, backGroundColors[2], smileysImages[2]);
+        happyMood = new Mood("Happy", 3, backGroundColors[3], smileysImages[3]);
+        superHappyMood = new Mood("Super Happy", 4, backGroundColors[4], smileysImages[4]);
 
         mPreferences = new MySharedPreferences(getApplicationContext());
+        Date today = Calendar.getInstance().getTime();
+        setDefaultMood();
+        Log.e("TAG",mPreferences.getMood(today));
 
         //Listener to get informed when user switch between smileys
         verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -90,10 +89,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                Date today = Calendar.getInstance().getTime();
                 currentSmileyPosition = position;
                 saveMood(currentSmileyPosition);
+                mPreferences.saveLastPositionForViewPager(currentSmileyPosition);
+                Log.e("TAG",mPreferences.getMood(today));
                 // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
-                changeBackGround();
+                changeBackground(todayMood);
             }
 
             @Override
@@ -129,45 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
             }
         });
-
-    }
-
-    //Method who change background color and add little music note
-    void changeBackGround() {
-        ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
-
-        switch (currentSmileyPosition) {
-
-            case 0:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.sadSmileyBackground));
-                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.pop);
-                mp.start();
-                break;
-
-            case 1:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.disappointedSmileyBackground));
-                MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
-                mp2.start();
-                break;
-
-            case 2:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.normalSmileyBackground));
-                MediaPlayer mp3 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
-                mp3.start();
-                break;
-
-            case 3:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.happySmileyBackground));
-                MediaPlayer mp4 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
-                mp4.start();
-                break;
-
-            case 4:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.superHappySmileyBackground));
-                MediaPlayer mp5 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
-                mp5.start();
-                break;
-        }
 
     }
 
@@ -220,5 +183,30 @@ public class MainActivity extends AppCompatActivity {
         //Put todayMood in prefs
         mPreferences.saveMood(today, todayMood);
     }
+
+    public void setDefaultMood() {
+        Date today = Calendar.getInstance().getTime();
+        int defaultPos;
+        //Set default position when launching app to HappySmiley (3)
+
+        if (mPreferences.getMood(today) == null) {
+            verticalViewPager.setCurrentItem(3);
+            todayMood = happyMood;
+            mPreferences.saveMood(today,todayMood);
+        } else {
+
+            verticalViewPager.setCurrentItem(mPreferences.getLastPositionForViewPager());
+          //  verticalViewPager.setBackground(GET LAST MOOD BACKGROUND);
+        }
+    }
+
+    public void changeBackground(Mood mood) {
+        ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
+
+        constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, mood.getBackgroundColor()));
+        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.pop);
+        mp.start();
+    }
 }
+
 
