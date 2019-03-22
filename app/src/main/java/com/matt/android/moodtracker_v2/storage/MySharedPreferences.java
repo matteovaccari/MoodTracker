@@ -19,6 +19,7 @@ public class MySharedPreferences {
 
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_NAME = "PREF_KEY_NAME";
+    public static final String PREF_KEY_LAST_POS_VIEW_PAGER = "PREF_KEY_LAST_POS_VIEW_PAGER";
     private String moodInStringForShare;
 
     public MySharedPreferences(Context context) {
@@ -81,4 +82,11 @@ public class MySharedPreferences {
         }
         return moodInStringForShare;
     }
+  public void saveLastPositionForViewPager(int smileyPos) {
+        mPreferences.edit().putInt(PREF_KEY_LAST_POS_VIEW_PAGER,smileyPos).apply();
+  }
+
+  public int getLastPositionForViewPager() {
+        return mPreferences.getInt(PREF_KEY_LAST_POS_VIEW_PAGER,-50);
+  }
 }
