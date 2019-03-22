@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     public static Mood normalMood;
     public static Mood happyMood;
     public static Mood superHappyMood;
+    private Integer[] backGroundColors = {R.color.faded_red, R.color.warm_grey, R.color.cornflower_blue_65, R.color.light_sage, R.color.banana_yellow};
+    private Integer[] smileysImages = {R.drawable.smiley_sad,R.drawable.smiley_disappointed, R.drawable.smiley_normal, R.drawable.smiley_happy, R.drawable.smiley_super_happy};
 
     @SuppressLint("ClickableViewAccessibility") //OnTouchListener
     @Override
