@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Set default position when launching app to Happy Smiley (3)
         verticalViewPager.setCurrentItem(3);
+        //Save default mood as Happy if nothing is done
+        saveMood(3);
 
         sadMood = new Mood("Sad", 0);
         disappointedMood = new Mood("Dissapointed", 1);
