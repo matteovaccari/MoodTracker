@@ -5,7 +5,7 @@ public class Mood {
     private String title;
     private int position;
 
-    public Mood (String title, int position) {
+    public Mood(String title, int position) {
         setTitle(title);
         setPosition(position);
     }

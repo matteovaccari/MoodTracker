@@ -37,7 +37,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
 
         mPreferences = new MySharedPreferences(getApplicationContext());
 
-            //Each layout is a bar for each day
+        //Each layout is a bar for each day
         RelativeLayout mDayOne = findViewById(R.id.activity_historic_day_one);
         RelativeLayout mDayTwo = findViewById(R.id.activity_historic_day_two);
         RelativeLayout mDayThree = findViewById(R.id.activity_historic_day_three);
@@ -46,7 +46,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         RelativeLayout mDaySix = findViewById(R.id.activity_historic_day_six);
         RelativeLayout mDaySeven = findViewById(R.id.activity_historic_day_seven);
 
-            //Buttons for displaying comments associated
+        //Buttons for displaying comments associated
         ImageButton mButtonOne = findViewById(R.id.activity_historic_btn_one);
         ImageButton mButtonTwo = findViewById(R.id.activity_historic_btn_two);
         ImageButton mButtonThree = findViewById(R.id.activity_historic_btn_three);
@@ -55,7 +55,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         ImageButton mButtonSix = findViewById(R.id.activity_historic_btn_six);
         ImageButton mButtonSeven = findViewById(R.id.activity_historic_btn_seven);
 
-            //Each textview is a "bar" title for each day (yesterday, 3 days ago, etc)
+        //Each textview is a "bar" title for each day (yesterday, 3 days ago, etc)
         TextView mTextViewOne = findViewById(R.id.activity_historic_text_one);
         TextView mTextViewTwo = findViewById(R.id.activity_historic_text_two);
         TextView mTextViewThree = findViewById(R.id.activity_historic_text_three);
@@ -78,9 +78,9 @@ public class MoodHistoryActivity extends AppCompatActivity {
                 .addTag(WORK_REQUEST_TAG)
                 .build();
         //Queue the work
-        WorkManager.getInstance().enqueueUniquePeriodicWork(WORK_REQUEST_TAG,ExistingPeriodicWorkPolicy.REPLACE,saveMood);
+        WorkManager.getInstance().enqueueUniquePeriodicWork(WORK_REQUEST_TAG, ExistingPeriodicWorkPolicy.REPLACE, saveMood);
 
-            //Tabs for last 7 days + comments
+        //Tabs for last 7 days + comments
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
         ImageButton[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
@@ -88,8 +88,8 @@ public class MoodHistoryActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < 7; i++) {
             calendar.add(Calendar.DAY_OF_WEEK, -1); //Subtract one day from calendar (yesterday)
-            this.displayMood(calendar.getTime(),layouts[i]);
-            this.displayComment(calendar.getTime(),buttons[i]);
+            this.displayMood(calendar.getTime(), layouts[i]);
+            this.displayComment(calendar.getTime(), buttons[i]);
         }
     }
 
@@ -104,7 +104,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         }
         int width = size.x;
 
-            //Get a mood from prefs to be displayed
+        //Get a mood from prefs to be displayed
         currendMoodPos = mPreferences.getMood(date);
 
         // If no mood, layout is still blank
@@ -142,16 +142,16 @@ public class MoodHistoryActivity extends AppCompatActivity {
         }
     }
 
-    public void displayComment (Date date, ImageButton button) {
+    public void displayComment(Date date, ImageButton button) {
         final String comment = mPreferences.getComment(date);
 
-            //If there's a comment, show comment button + can display message with Toast message
+        //If there's a comment, show comment button + can display message with Toast message
         if (comment != null) {
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(),comment,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), comment, Toast.LENGTH_SHORT).show();
                 }
             });
             //Else, button is hidden

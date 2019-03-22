@@ -54,30 +54,31 @@ public class MainActivity extends AppCompatActivity {
         shareButton = (ImageButton) findViewById(R.id.main_activity_share_button);
         verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
 
-            //Instanciate adapter then set it to verticalViewPager adapter attribute
+        //Instanciate adapter then set it to verticalViewPager adapter attribute
         adapter = new CustomSwipeAdapter(this);
         verticalViewPager.setAdapter(adapter);
 
-            //Set default position when launching app to Happy Smiley (3)
+        //Set default position when launching app to Happy Smiley (3)
         verticalViewPager.setCurrentItem(3);
 
         sadMood = new Mood("Sad", 0);
-        disappointedMood = new Mood("Dissapointed",1);
+        disappointedMood = new Mood("Dissapointed", 1);
         normalMood = new Mood("Normal", 2);
-        happyMood = new Mood ("Happy",3);
-        superHappyMood = new Mood ("Super Happy", 4);
+        happyMood = new Mood("Happy", 3);
+        superHappyMood = new Mood("Super Happy", 4);
 
         mPreferences = new MySharedPreferences(getApplicationContext());
 
-            //Listener to get informed when user switch between smileys
-        verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+        //Listener to get informed when user switch between smileys
+        verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
+
             @Override
             public void onPageSelected(int position) {
                 currentSmileyPosition = position;
-          // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
+                // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackGround();
             }
 
@@ -87,36 +88,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Launch MoodHistoryActivity when history button is clicked
-            historyButton.setOnClickListener(new View.OnClickListener() {
+        historyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent historyActivityIntent = new Intent(MainActivity.this,MoodHistoryActivity.class);
+                Intent historyActivityIntent = new Intent(MainActivity.this, MoodHistoryActivity.class);
                 startActivity(historyActivityIntent);
             }
         });
-            //Call saveComment method when comment button is clicked
-           commentButton.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                  saveComment(MainActivity.this);
-               }
-           });
+        //Call saveComment method when comment button is clicked
+        commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveComment(MainActivity.this);
+            }
+        });
 
-           shareButton.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent shareIntent = new Intent (Intent.ACTION_SEND);
-                   shareIntent.setType("text/plain");
-                   Date today = Calendar.getInstance().getTime();
-                   String shareBody = "I'm feeling " + mPreferences.getMoodNameForSharing(currentSmileyPosition) + " today!";
-                   shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                   shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                   startActivity(Intent.createChooser(shareIntent, "Share via"));
-               }
-           });
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                Date today = Calendar.getInstance().getTime();
+                String shareBody = "I'm feeling " + mPreferences.getMoodNameForSharing(currentSmileyPosition) + " today!";
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(shareIntent, "Share via"));
+            }
+        });
 
     }
-        //Method who change background color and add little music note
+
+    //Method who change background color and add little music note
     void changeBackGround() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
 
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case 1:
-               constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.disappointedSmileyBackground));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.disappointedSmileyBackground));
                 MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp2.start();
                 break;
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case 3:
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this,  HistoryItem.happySmileyBackground));
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, HistoryItem.happySmileyBackground));
                 MediaPlayer mp4 = MediaPlayer.create(getApplicationContext(), R.raw.pop);
                 mp4.start();
                 break;
@@ -156,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveComment(Context ctx) {
-          //Input message
+        //Input message
         final EditText inputComment = new EditText(ctx);
 
         AlertDialog.Builder addcomment = new AlertDialog.Builder(MainActivity.this);
@@ -167,14 +169,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Date today = Calendar.getInstance().getTime();
-                    //Save input into comment(String)
+                //Save input into comment(String)
                 comment = String.valueOf(inputComment.getText());
-                    //Save comment into prefs with date as key
-                mPreferences.saveComment(today,comment);
-                Toast.makeText(MainActivity.this,"Comment saved",Toast.LENGTH_SHORT).show();
+                //Save comment into prefs with date as key
+                mPreferences.saveComment(today, comment);
+                Toast.makeText(MainActivity.this, "Comment saved", Toast.LENGTH_SHORT).show();
             }
         });
-        addcomment.setNegativeButton("Cancel",null);
+        addcomment.setNegativeButton("Cancel", null);
         addcomment.create();
         addcomment.show();
     }

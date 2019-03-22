@@ -16,8 +16,8 @@ public class CustomSwipeAdapter extends PagerAdapter {
     private Context ctx;
     private LayoutInflater layoutInflater;
 
-    private int [] images_ressources = {HistoryItem.sadSmiley,HistoryItem.disappointedSmiley,
-           HistoryItem.normalSmiley, HistoryItem.happySmiley, HistoryItem.superHappySmiley};
+    private int[] images_ressources = {HistoryItem.sadSmiley, HistoryItem.disappointedSmiley,
+            HistoryItem.normalSmiley, HistoryItem.happySmiley, HistoryItem.superHappySmiley};
 
 
     public CustomSwipeAdapter(Context ctx) {
@@ -31,13 +31,13 @@ public class CustomSwipeAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return (view == (LinearLayout)object) ;
+        return (view == (LinearLayout) object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View item_view = layoutInflater.inflate(R.layout.swipe_layout,container, false);
+        View item_view = layoutInflater.inflate(R.layout.swipe_layout, container, false);
         ImageView imageView = (ImageView) item_view.findViewById(R.id.swipe_layout_imageView_ID);
         imageView.setImageResource(images_ressources[position]);
         container.addView(item_view);
@@ -46,6 +46,6 @@ public class CustomSwipeAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout)object);
+        container.removeView((LinearLayout) object);
     }
 }
