@@ -21,6 +21,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             android:textSize="20sp"
+            android:textColor="@color/black"
             tools:text="@string/day_7"
             android:textStyle="bold"/>
 
@@ -49,6 +50,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             tools:text="@string/day_6"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -78,6 +80,7 @@
             android:layout_marginStart="5dp"
             tools:text="@string/day_5"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:textStyle="bold"/>
 
         <ImageButton
@@ -105,6 +108,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             tools:text="@string/day_4"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -133,6 +137,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             tools:text="@string/day_3"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -161,6 +166,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             tools:text="@string/day_2"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -189,6 +195,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             tools:text="@string/day_1"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
