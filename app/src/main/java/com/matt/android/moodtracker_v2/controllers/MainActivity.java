@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton commentButton;
     CustomSwipeAdapter adapter;
     private MySharedPreferences mPreferences;
+    private Mood todayMood;
     public static Mood sadMood;
     public static Mood disappointedMood;
     public static Mood normalMood;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentSmileyPosition = position;
+                saveMood(currentSmileyPosition);
                 // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackGround();
             }
@@ -189,5 +191,30 @@ public class MainActivity extends AppCompatActivity {
         addcomment.show();
     }
 
+    //Take currentSmileyPosition, convert it to corresponding mood then save it in prefs
+    public void saveMood(int currentSmileyPosition) {
 
+        Date today = Calendar.getInstance().getTime();
+
+        switch (currentSmileyPosition) {
+            case 0:
+                todayMood = sadMood;
+                break;
+            case 1:
+                todayMood = disappointedMood;
+                break;
+            case 2:
+                todayMood = normalMood;
+                break;
+            case 3:
+                todayMood = happyMood;
+                break;
+            case 4:
+                todayMood = superHappyMood;
+                break;
+        }
+        //Put todayMood in prefs
+        mPreferences.saveMood(today, todayMood);
+    }
 }
+

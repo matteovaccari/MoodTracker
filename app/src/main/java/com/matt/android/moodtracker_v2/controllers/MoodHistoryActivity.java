@@ -21,16 +21,9 @@ import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
-import com.matt.android.moodtracker_v2.workers.SaveMoodWorker;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 public class MoodHistoryActivity extends AppCompatActivity {
 
@@ -79,14 +72,6 @@ public class MoodHistoryActivity extends AppCompatActivity {
         mTextViewFive.setText(getString(R.string.day_5));
         mTextViewSix.setText(getString(R.string.day_6));
         mTextViewSeven.setText(getString(R.string.day_7));
-
-        //Instancied WorkRequest
-        PeriodicWorkRequest saveMood = new PeriodicWorkRequest.Builder(SaveMoodWorker.class, 2, TimeUnit.HOURS)
-                .setConstraints(Constraints.NONE)
-                .addTag(WORK_REQUEST_TAG)
-                .build();
-        //Queue the work
-        WorkManager.getInstance().enqueueUniquePeriodicWork(WORK_REQUEST_TAG, ExistingPeriodicWorkPolicy.REPLACE, saveMood);
 
         //Tabs for last 7 days + comments
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
