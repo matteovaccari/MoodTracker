@@ -29,7 +29,6 @@ public class MoodHistoryActivity extends AppCompatActivity {
 
     private MySharedPreferences mPreferences;
     private String currendMoodPos;
-    public static final String WORK_REQUEST_TAG = "WORK_REQUEST_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
