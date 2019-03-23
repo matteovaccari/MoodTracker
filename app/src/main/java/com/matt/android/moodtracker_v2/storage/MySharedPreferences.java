@@ -11,18 +11,24 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 
+import com.google.gson.reflect.TypeToken;
 import com.matt.android.moodtracker_v2.R;
+import com.matt.android.moodtracker_v2.models.HistoryItem;
 import com.matt.android.moodtracker_v2.models.Mood;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class MySharedPreferences {
 
+    private HistoryItem historyItem;
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_NAME = "PREF_KEY_NAME";
     public static final String PREF_KEY_LAST_POS_VIEWPAGER = "PREF_KEY_LAST_POS_VIEWPAGER";
+    public static final String PREF_KEY_HISTORY_ITEM = "PREF_KEY_HISTORY_ITEM";
     public static final String PREF_KEY_BACKGROUND_VIEWPAGER = "PREF_KEY_BACKGROUND_VIEWPAGER";
 
     private String moodInStringForShare;
@@ -50,6 +56,23 @@ public class MySharedPreferences {
             return CurrentMood;
         }
         return null;
+    }
+
+    public void saveHistoryItem(Mood mood, String comment) {
+       Gson gson = new Gson();
+       String jsonHistoryItem = gson.toJson(new HistoryItem(mood,comment)); // HistoryItem --> Json String
+       mPreferences.edit().putString(PREF_KEY_HISTORY_ITEM, jsonHistoryItem).apply(); // Json String --> SharedPrefs
+    }
+
+    //Get historyItemJson and convert it to HistoryItem, then return it
+    public HistoryItem getHistoryItem() {
+
+        Gson gson = new Gson();
+        String json = mPreferences.getString(PREF_KEY_HISTORY_ITEM,null);
+        Type type = new TypeToken<HistoryItem>() {}.getType();
+        historyItem = gson.fromJson(json,type);
+        return historyItem;
+
     }
 
     //Same methods for comments
