@@ -4,11 +4,14 @@
  *
  *   https://github.com/matteovaccari/MoodTracker
  *
- */package com.matt.android.moodtracker_v2.storage;
+ */
+package com.matt.android.moodtracker_v2.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 
+import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.models.Mood;
 
 import java.text.SimpleDateFormat;
@@ -19,7 +22,9 @@ public class MySharedPreferences {
 
     private SharedPreferences mPreferences;
     public static final String PREF_KEY_NAME = "PREF_KEY_NAME";
-    public static final String PREF_KEY_LAST_POS_VIEW_PAGER = "PREF_KEY_LAST_POS_VIEW_PAGER";
+    public static final String PREF_KEY_LAST_POS_VIEWPAGER = "PREF_KEY_LAST_POS_VIEWPAGER";
+    public static final String PREF_KEY_BACKGROUND_VIEWPAGER = "PREF_KEY_BACKGROUND_VIEWPAGER";
+
     private String moodInStringForShare;
 
     public MySharedPreferences(Context context) {
@@ -82,11 +87,15 @@ public class MySharedPreferences {
         }
         return moodInStringForShare;
     }
-  public void saveLastPositionForViewPager(int smileyPos) {
-        mPreferences.edit().putInt(PREF_KEY_LAST_POS_VIEW_PAGER,smileyPos).apply();
-  }
 
-  public int getLastPositionForViewPager() {
-        return mPreferences.getInt(PREF_KEY_LAST_POS_VIEW_PAGER,-50);
-  }
+
+    //The next methods are for displaying correct last page at each run
+    public void saveLastPositionForViewPager(int smileyPos) {
+        mPreferences.edit().putInt(PREF_KEY_LAST_POS_VIEWPAGER, smileyPos).apply();
+    }
+
+    public int getLastPositionForViewPager() {
+        return mPreferences.getInt(PREF_KEY_LAST_POS_VIEWPAGER, -50);
+    }
+
 }
