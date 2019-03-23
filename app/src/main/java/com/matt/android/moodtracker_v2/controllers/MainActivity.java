@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     CustomSwipeAdapter adapter;
     private MySharedPreferences mPreferences;
     private Mood todayMood;
+    private Mood todayMoodForViewPager;
     public static Mood sadMood;
     public static Mood disappointedMood;
     public static Mood normalMood;
@@ -185,17 +186,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void setDefaultMood() {
         Date today = Calendar.getInstance().getTime();
-        int defaultPos;
-        //Set default position when launching app to HappySmiley (3)
+        //Set default position when launching app to HappySmiley (3), or last mood registered
 
         if (mPreferences.getMood(today) == null) {
+
             verticalViewPager.setCurrentItem(3);
             todayMood = happyMood;
             mPreferences.saveMood(today,todayMood);
         } else {
-
+            //Get last smiley + last background color combo and show it even is app was closed.
             verticalViewPager.setCurrentItem(mPreferences.getLastPositionForViewPager());
-          //  verticalViewPager.setBackground(GET LAST MOOD BACKGROUND);
+            ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
+            constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this,moodList.get(mPreferences.getLastPositionForViewPager()).getBackgroundColor()));
         }
     }
 
@@ -214,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
         moodList.add(happyMood = new Mood("Happy", 3, backGroundColors[3], smileysImages[3]));
         moodList.add(superHappyMood = new Mood("Super Happy", 4, backGroundColors[4], smileysImages[4]));
     }
+
 }
 
 
