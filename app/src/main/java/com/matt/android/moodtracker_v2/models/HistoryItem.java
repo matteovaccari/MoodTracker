@@ -8,14 +8,19 @@
 
 package com.matt.android.moodtracker_v2.models;
 
+import java.util.Date;
+
 public class HistoryItem {
 
+    private Date date;
     private Mood mood;
     private String comment;
 
-    public HistoryItem(Mood mood, String comment) {
+
+    public HistoryItem(Date date, Mood mood, String comment) {
         setComment(comment);
         setMood(mood);
+        setDate(date);
     }
 
     public Mood getMood() {
@@ -33,4 +38,12 @@ public class HistoryItem {
     public void setComment(String comment) {
         this.comment = comment;
     }
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
 }
