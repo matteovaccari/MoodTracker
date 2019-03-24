@@ -58,9 +58,9 @@ public class MySharedPreferences {
         return null;
     }
 
-    public void saveHistoryItem(Mood mood, String comment) {
+    public void saveHistoryItem(Date date, Mood mood, String comment) {
        Gson gson = new Gson();
-       String jsonHistoryItem = gson.toJson(new HistoryItem(mood,comment)); // HistoryItem --> Json String
+       String jsonHistoryItem = gson.toJson(new HistoryItem(date,mood,comment)); // HistoryItem --> Json String
        mPreferences.edit().putString(PREF_KEY_HISTORY_ITEM, jsonHistoryItem).apply(); // Json String --> SharedPrefs
     }
 
