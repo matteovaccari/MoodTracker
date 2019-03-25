@@ -29,6 +29,7 @@ import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
 import com.matt.android.moodtracker_v2.models.HistoryItem;
 import com.matt.android.moodtracker_v2.models.Mood;
+import com.matt.android.moodtracker_v2.models.MoodEnum;
 import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ import java.util.Date;
 import java.util.List;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
+
+import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_COMMENT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public static Mood normalMood;
     public static Mood happyMood;
     public static Mood superHappyMood;
-    private List<Mood> moodList = new ArrayList<>();
+    public static ArrayList<Mood> moodList = new ArrayList<>();
     private Integer[] backGroundColors = {R.color.faded_red, R.color.warm_grey, R.color.cornflower_blue_65, R.color.light_sage, R.color.banana_yellow};
     private Integer[] smileysImages = {R.drawable.smiley_sad, R.drawable.smiley_disappointed, R.drawable.smiley_normal, R.drawable.smiley_happy, R.drawable.smiley_super_happy};
 
@@ -79,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         mPreferences = new MySharedPreferences(getApplicationContext());
         Date today = Calendar.getInstance().getTime();
         setDefaultMood();
-        Log.e("TAG",mPreferences.getMood(today));
 
         //Listener to get informed when user switch between smileys
         verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 currentSmileyPosition = position;
                 saveMood(currentSmileyPosition);
                 mPreferences.saveLastPositionForViewPager(currentSmileyPosition);
-                Log.e("TAG",mPreferences.getMood(today));
+                Log.e("TAG",mPreferences.getHistoryItem(today).getComment());
                 // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackground(todayMood);
             }
@@ -149,7 +151,9 @@ public class MainActivity extends AppCompatActivity {
                 //Save input into comment(String)
                 comment = String.valueOf(inputComment.getText());
                 //Save comment into prefs with date as key
-                mPreferences.saveComment(today, comment);
+               // mPreferences.saveComment(today, comment);
+                mPreferences.getHistoryItem(today).setComment(comment);
+                Log.e("TAG",comment);
                 Toast.makeText(MainActivity.this, "Comment saved", Toast.LENGTH_SHORT).show();
             }
         });
@@ -181,18 +185,19 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         //Put todayMood in prefs
-        mPreferences.saveMood(today, todayMood);
+       // mPreferences.saveMood(today, todayMood);
+        mPreferences.saveHistoryItem(today, todayMood);
     }
 
     public void setDefaultMood() {
         Date today = Calendar.getInstance().getTime();
         //Set default position when launching app to HappySmiley (3), or last mood registered
 
-        if (mPreferences.getMood(today) == null) {
+        if (mPreferences.getHistoryItem(today).getMood() == null) {
 
             verticalViewPager.setCurrentItem(3);
             todayMood = happyMood;
-            mPreferences.saveMood(today,todayMood);
+            mPreferences.saveHistoryItem(today, todayMood);
         } else {
             //Get last smiley + last background color combo and show it even is app was closed.
             verticalViewPager.setCurrentItem(mPreferences.getLastPositionForViewPager());
@@ -210,11 +215,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createMoods() {
-        moodList.add(sadMood = new Mood("Sad", 0, backGroundColors[0], smileysImages[0]));
-        moodList.add(disappointedMood = new Mood("Dissapointed", 1, backGroundColors[1], smileysImages[1]));
-        moodList.add(normalMood = new Mood("Normal", 2, backGroundColors[2], smileysImages[2]));
-        moodList.add(happyMood = new Mood("Happy", 3, backGroundColors[3], smileysImages[3]));
-        moodList.add(superHappyMood = new Mood("Super Happy", 4, backGroundColors[4], smileysImages[4]));
+        moodList.add(sadMood = new Mood(MoodEnum.Sad, 0, backGroundColors[0], smileysImages[0]));
+        moodList.add(disappointedMood = new Mood(MoodEnum.Disappointed, 1, backGroundColors[1], smileysImages[1]));
+        moodList.add(normalMood = new Mood(MoodEnum.Normal, 2, backGroundColors[2], smileysImages[2]));
+        moodList.add(happyMood = new Mood(MoodEnum.Happy, 3, backGroundColors[3], smileysImages[3]));
+        moodList.add(superHappyMood = new Mood(MoodEnum.SuperHappy, 4, backGroundColors[4], smileysImages[4]));
     }
 
 }
