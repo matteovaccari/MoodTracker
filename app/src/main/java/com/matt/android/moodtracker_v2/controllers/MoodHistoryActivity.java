@@ -11,6 +11,7 @@ package com.matt.android.moodtracker_v2.controllers;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageButton;
@@ -20,15 +21,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
+import com.matt.android.moodtracker_v2.models.HistoryItem;
+import com.matt.android.moodtracker_v2.models.Mood;
+import com.matt.android.moodtracker_v2.models.MoodEnum;
 import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import static com.matt.android.moodtracker_v2.models.MoodEnum.*;
+import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_COMMENT;
 
 public class MoodHistoryActivity extends AppCompatActivity {
 
     private MySharedPreferences mPreferences;
-    private String currendMoodPos;
+    private HistoryItem currentMoodPos;
+    private static ArrayList<Mood> moodList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +92,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
             calendar.add(Calendar.DAY_OF_WEEK, -1); //Subtract one day from calendar (yesterday)
             this.displayMood(calendar.getTime(), layouts[i]);
             this.displayComment(calendar.getTime(), buttons[i]);
+            Log.e("TAG2",getEmptyOrNotComment(calendar.getTime()));
         }
     }
 
@@ -97,35 +108,36 @@ public class MoodHistoryActivity extends AppCompatActivity {
         int width = size.x;
 
         //Get a mood from prefs to be displayed
-        currendMoodPos = mPreferences.getMood(date);
+             // currendMoodPos = mPreferences.getMood(date);
+        currentMoodPos = mPreferences.getHistoryItem(date);
 
         // If no mood, layout is still blank
-        if (currendMoodPos == null) {
+        if (currentMoodPos == null) {
             relativeLayout.setBackgroundColor(0);
         } else {
             // Set background color and fraction for each mood case
-            switch (currendMoodPos) {
-                case "Sad":
+            switch (currentMoodPos.getMood()) {
+                case Sad:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(width / 5,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.faded_red));
                     break;
-                case "Dissapointed":
+                case Disappointed:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 2,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.warm_grey));
                     break;
-                case "Normal":
+                case Normal:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 3,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.cornflower_blue_65));
                     break;
-                case "Happy":
+                case Happy:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams((width / 5) * 4,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.light_sage));
                     break;
-                case "Super Happy":
+                case SuperHappy:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(width,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
@@ -135,10 +147,12 @@ public class MoodHistoryActivity extends AppCompatActivity {
     }
 
     public void displayComment(Date date, ImageButton button) {
-        final String comment = mPreferences.getComment(date);
+        final String comment = getEmptyOrNotComment(date);
 
         //If there's a comment, show comment button + can display message with Toast message
-        if (comment != null) {
+        if (comment.equalsIgnoreCase(PREF_KEY_EMPTY_COMMENT)) {
+            button.setVisibility(View.INVISIBLE);
+        } else {
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -147,8 +161,19 @@ public class MoodHistoryActivity extends AppCompatActivity {
                 }
             });
             //Else, button is hidden
-        } else {
-            button.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public String getEmptyOrNotComment(Date date) {
+
+        try {
+            mPreferences.getHistoryItem(date).getComment();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return PREF_KEY_EMPTY_COMMENT;
+        }
+
+        return  mPreferences.getHistoryItem(date).getComment();
+
     }
 }
