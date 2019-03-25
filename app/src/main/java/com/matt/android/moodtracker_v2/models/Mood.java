@@ -10,12 +10,12 @@ package com.matt.android.moodtracker_v2.models;
 
 public class Mood {
 
-    private String title;
+    private MoodEnum title;
     private int position;
     private int backgroundColor;
     private int smiley;
 
-    public Mood(String title, int position, int backgroundColor, int smiley) {
+    public Mood(MoodEnum title, int position, int backgroundColor, int smiley) {
         setTitle(title);
         setPosition(position);
         setBackgroundColor(backgroundColor);
@@ -35,11 +35,11 @@ public class Mood {
         this.smiley = smiley;
     }
 
-    public String getTitle() {
+    public MoodEnum getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(MoodEnum title) {
         this.title = title;
     }
 
