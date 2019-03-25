@@ -10,6 +10,8 @@ package com.matt.android.moodtracker_v2.models;
 
 import java.util.Date;
 
+import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_COMMENT;
+
 public class HistoryItem {
 
     private Date date;
@@ -17,14 +19,13 @@ public class HistoryItem {
     private String comment;
 
 
-    public HistoryItem(Date date, Mood mood, String comment) {
-        setComment(comment);
+    public HistoryItem(Date date, Mood mood) {
         setMood(mood);
         setDate(date);
     }
 
-    public Mood getMood() {
-        return mood;
+    public MoodEnum getMood() {
+        return mood.getTitle();
     }
 
     public void setMood(Mood mood) {
@@ -32,7 +33,12 @@ public class HistoryItem {
     }
 
     public String getComment() {
-        return comment;
+        if (comment != null) {
+            return comment;
+        } else {
+            return PREF_KEY_EMPTY_COMMENT;
+        }
+
     }
 
     public void setComment(String comment) {
@@ -45,5 +51,7 @@ public class HistoryItem {
     public void setDate(Date date) {
         this.date = date;
     }
+
+
 
 }
