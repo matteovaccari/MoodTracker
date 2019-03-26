@@ -38,6 +38,8 @@ import java.util.Date;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
+import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_COMMENT;
+
 public class MainActivity extends AppCompatActivity {
 
     public String comment;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton commentButton;
     CustomSwipeAdapter adapter;
     private MySharedPreferences mPreferences;
+    private MoodEnum todayMoodEnum;
     private Mood todayMood;
     public static Mood sadMood;
     public static Mood disappointedMood;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public static Mood happyMood;
     public static Mood superHappyMood;
     public static ArrayList<Mood> moodList = new ArrayList<>();
+    private HistoryItem todayHistoryItem;
     private Integer[] backGroundColors = {R.color.faded_red, R.color.warm_grey, R.color.cornflower_blue_65, R.color.light_sage, R.color.banana_yellow};
     private Integer[] smileysImages = {R.drawable.smiley_sad, R.drawable.smiley_disappointed, R.drawable.smiley_normal, R.drawable.smiley_happy, R.drawable.smiley_super_happy};
 
@@ -78,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
         mPreferences = new MySharedPreferences(getApplicationContext());
         setDefaultMood();
-
+        Date today = Calendar.getInstance().getTime();
+        Log.e("TAGMOOD",mPreferences.getMood2(today).getMood().name());
         //Listener to get informed when user switch between smileys
         verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -88,12 +93,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Date today = Calendar.getInstance().getTime();
+                todayHistoryItem = mPreferences.getMood2(today);
                 currentSmileyPosition = position;
-                saveMood(currentSmileyPosition);
+                setMood(currentSmileyPosition); // This is for implicit affection of todayMood var for changeBackGround method
                 mPreferences.saveLastPositionForViewPager(currentSmileyPosition);
                 changeBackground(todayMood);
-              //  Log.e("MOOD",mPreferences.getMood(today).name());
-              //  Log.e("COMMENT",mPreferences.getComment(today));
+                updateTodayMood(today, setMood(currentSmileyPosition), mPreferences.getComment(today));
+                mPreferences.savemood2(today, todayHistoryItem);
 
             }
 
@@ -147,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 //Save input into comment(String)
                 comment = String.valueOf(inputComment.getText());
                 //Save comment into HistoryItem comment attribute with date as key
-                mPreferences.saveComment(today,comment);
+                mPreferences.saveComment(today, comment);
                 Toast.makeText(MainActivity.this, "Comment saved", Toast.LENGTH_SHORT).show();
             }
         });
@@ -156,46 +162,53 @@ public class MainActivity extends AppCompatActivity {
         addcoment.show();
     }
 
-    //Take currentSmileyPosition, convert it to corresponding mood then save it in prefs
-    public void saveMood(int currentSmileyPosition) {
+    //Take currentSmileyPosition, convert it to corresponding moodEnum then return it
+    public MoodEnum setMood(int currentSmileyPosition) {
 
         Date today = Calendar.getInstance().getTime();
 
         switch (currentSmileyPosition) {
             case 0:
+                todayMoodEnum = MoodEnum.Sad;
                 todayMood = sadMood;
                 break;
             case 1:
+                todayMoodEnum = MoodEnum.Disappointed;
                 todayMood = disappointedMood;
                 break;
             case 2:
+                todayMoodEnum = MoodEnum.Normal;
                 todayMood = normalMood;
                 break;
             case 3:
+                todayMoodEnum = MoodEnum.Happy;
                 todayMood = happyMood;
                 break;
             case 4:
+                todayMoodEnum = MoodEnum.SuperHappy;
                 todayMood = superHappyMood;
                 break;
         }
-        //Put todayMood in prefs
-        mPreferences.saveMood(today,todayMood);
+        return todayMoodEnum;
     }
 
     public void setDefaultMood() {
         Date today = Calendar.getInstance().getTime();
         //Set default position when launching app to HappySmiley (3), or last mood registered
 
-        if (mPreferences.getMood(today) == null) {
+        if (mPreferences.getMood2(today) == null) {
 
             verticalViewPager.setCurrentItem(3);
             todayMood = happyMood;
-            mPreferences.saveMood(today,todayMood);
+            todayMoodEnum = MoodEnum.Happy;
+            todayHistoryItem = new HistoryItem(today, todayMoodEnum, PREF_KEY_EMPTY_COMMENT);
+            mPreferences.savemood2(today, todayHistoryItem);
+
         } else {
             //Get last smiley + last background color combo and show it even is app was closed.
             verticalViewPager.setCurrentItem(mPreferences.getLastPositionForViewPager());
             ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
-            constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this,moodList.get(mPreferences.getLastPositionForViewPager()).getBackgroundColor()));
+            constraintLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, moodList.get(mPreferences.getLastPositionForViewPager()).getBackgroundColor()));
         }
     }
 
@@ -215,7 +228,15 @@ public class MainActivity extends AppCompatActivity {
         moodList.add(superHappyMood = new Mood(MoodEnum.SuperHappy, 4, backGroundColors[4], smileysImages[4]));
     }
 
-
+    public void updateTodayMood(Date date, MoodEnum moodEnum, String comment) {
+        todayHistoryItem.setDate(date);
+        todayHistoryItem.setMood(moodEnum);
+        todayHistoryItem.setComment(comment);
+    }
+    /*
+    public String updateComment(Date date) {
+        if (mPreferences.getComment(date) != null )
+    } */
 }
 
 

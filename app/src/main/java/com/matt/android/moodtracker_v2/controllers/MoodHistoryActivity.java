@@ -37,8 +37,7 @@ import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_C
 public class MoodHistoryActivity extends AppCompatActivity {
 
     private MySharedPreferences mPreferences;
-    private HistoryItem currentMoodPos;
-    private static ArrayList<Mood> moodList = new ArrayList<>();
+    private HistoryItem todayHistoryItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,13 +85,15 @@ public class MoodHistoryActivity extends AppCompatActivity {
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
         ImageButton[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
+      /*  Date today = Calendar.getInstance().getTime();
+        todayHistoryItem = mPreferences.getMood2(today); */
+
         // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < 7; i++) {
             calendar.add(Calendar.DAY_OF_WEEK, -1); //Subtract one day from calendar (yesterday)
             this.displayMood(calendar.getTime(), layouts[i]);
             this.displayComment(calendar.getTime(), buttons[i]);
-            Log.e("TAG2",getEmptyOrNotComment(calendar.getTime()));
         }
     }
 
@@ -108,15 +109,15 @@ public class MoodHistoryActivity extends AppCompatActivity {
         int width = size.x;
 
         //Get a mood from prefs to be displayed
-             // currendMoodPos = mPreferences.getMood(date);
-        currentMoodPos = mPreferences.getHistoryItem(date);
 
-        // If no mood, layout is still blank
-        if (currentMoodPos == null) {
+        todayHistoryItem = mPreferences.getMood2(date);
+     //   MoodEnum mood = mPreferences.getMood2(date).getMood();
+                                                         //HistoryItem Deserialized
+        if (todayHistoryItem.getMood() == null) {
             relativeLayout.setBackgroundColor(0);
-        } else {
+        }  else {
             // Set background color and fraction for each mood case
-            switch (currentMoodPos.getMood()) {
+            switch (todayHistoryItem.getMood()) {
                 case Sad:
                     relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(width / 5,
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
@@ -142,6 +143,9 @@ public class MoodHistoryActivity extends AppCompatActivity {
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
                     break;
+                default:
+                    relativeLayout.setBackgroundColor(0);
+                    break;
             }
         }
     }
@@ -160,20 +164,20 @@ public class MoodHistoryActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), comment, Toast.LENGTH_SHORT).show();
                 }
             });
-            //Else, button is hidden
         }
     }
 
     public String getEmptyOrNotComment(Date date) {
 
         try {
-            mPreferences.getHistoryItem(date).getComment();
+            mPreferences.getMood2(date).getComment();
         } catch (NullPointerException e) {
             e.printStackTrace();
             return PREF_KEY_EMPTY_COMMENT;
         }
 
-        return  mPreferences.getHistoryItem(date).getComment();
+        return mPreferences.getMood2(date).getComment();
 
     }
+
 }

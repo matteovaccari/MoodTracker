@@ -10,6 +10,7 @@ package com.matt.android.moodtracker_v2.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -48,13 +49,13 @@ public class MySharedPreferences {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         return "Mood at " + simpleDateFormat.format(date);
     }
-
+/**
     public void saveMood(Date date, Mood mood) {
-        mPreferences.edit().putString(getMoodDate(date),mood.getTitle().toString()).apply();
+        mPreferences.edit().putString(getMoodDate(date), mood.getTitle().toString()).apply();
     }
 
     public MoodEnum getMood(Date date) {
-        String mood = mPreferences.getString(getMoodDate(date),null);
+        String mood = mPreferences.getString(getMoodDate(date), null);
         if (mood != null) {
             try {
                 return MoodEnum.valueOf(mood);
@@ -63,39 +64,64 @@ public class MySharedPreferences {
             }
         }
         return null;
-    }
+    } */
 
-    public void saveHistoryItem(Date date, MoodEnum mood, String comment) {
+    public void savemood2(Date date, HistoryItem historyItem) {
         Gson gson = new Gson();
-        String jsonHistoryItem = gson.toJson(new HistoryItem(date, mood, comment)); // HistoryItem --> Json String
-        mPreferences.edit().putString(getHistoryItemDate(date), jsonHistoryItem).apply(); // Json String --> SharedPrefs
-    }
-
-    public String getHistoryItemDate(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-        return "Mood at " + simpleDateFormat.format(date);
-    }
-
-    //Get historyItemJson and convert it to HistoryItem, then return it
-    public HistoryItem getHistoryItem(Date date) {
-
-        Gson gson = new Gson();
-        String json = mPreferences.getString(getHistoryItemDate(date), null);
-        Type type = new TypeToken<HistoryItem>() {
-        }.getType();
-        try {
-            historyItem = gson.fromJson(json, type);
-        } catch (IllegalStateException | JsonSyntaxException exception) {
-            exception.printStackTrace();
+        String jsonHistoryItem;
+        // HistoryItem --> Json String
+        if (historyItem.getComment() != null || historyItem.getComment() != PREF_KEY_EMPTY_COMMENT) {
+            jsonHistoryItem = gson.toJson(historyItem, HistoryItem.class);
+        }
+        //If there's no comment, save PREF_KEY_EMPTY_COMMENT as comment
+        else {
+            historyItem.setComment(PREF_KEY_EMPTY_COMMENT);
+            jsonHistoryItem = gson.toJson(historyItem, HistoryItem.class);
         }
 
-        try {
-            historyItem.getComment();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        mPreferences.edit().putString(getMoodDate(date), jsonHistoryItem).apply();
+        Log.e("TAGINPUT", jsonHistoryItem);
+    }
+
+    public HistoryItem getMood2(Date date) {
+        Gson gson = new Gson();
+        String json = mPreferences.getString(getMoodDate(date), null);
+        //   Type type = new TypeToken<HistoryItem>() {}.getType();
+        historyItem = gson.fromJson(json, HistoryItem.class);
+//        Log.e("TAGOUTPUT", json);
         return historyItem;
     }
+
+    /**
+     * public void saveHistoryItem(Date date, MoodEnum mood) {
+     * Gson gson = new Gson();
+     * String jsonHistoryItem;
+     * //If there's already a comment, save it
+     * if (getComment(date) != null || getComment(date) != PREF_KEY_EMPTY_COMMENT) {
+     * jsonHistoryItem = gson.toJson(new HistoryItem(date, mood, getComment(date)),HistoryItem.class);
+     * }
+     * //If there's no comment, save PREF_KEY_EMPTY_COMMENT as comment
+     * else {
+     * jsonHistoryItem = gson.toJson(new HistoryItem(date, mood, PREF_KEY_EMPTY_COMMENT),HistoryItem.class); // HistoryItem --> Json String
+     * }
+     * mPreferences.edit().putString(getHistoryItemDate(date), jsonHistoryItem).apply(); // Json String --> SharedPrefs
+     * }
+     * <p>
+     * public String getHistoryItemDate(Date date) {
+     * SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+     * return "Mood at " + simpleDateFormat.format(date);
+     * }
+     * <p>
+     * //Get historyItemJson and convert it to HistoryItem, then return it
+     * public HistoryItem getHistoryItem(Date date) {
+     * <p>
+     * Gson gson = new Gson();
+     * String json = mPreferences.getString(getHistoryItemDate(date), null);
+     * //   Type type = new TypeToken<HistoryItem>() {}.getType();
+     * historyItem = gson.fromJson(json,HistoryItem.class);
+     * return historyItem;
+     * }
+     */
 
     public String getMoodNameForSharing(int currentPos) {
 
@@ -128,16 +154,18 @@ public class MySharedPreferences {
         return mPreferences.getInt(PREF_KEY_LAST_POS_VIEWPAGER, -50);
     }
 
+
     public String getCommentDate(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         return "Comment at " + simpleDateFormat.format(date);
     }
 
     public void saveComment(Date date, String comment) {
-        mPreferences.edit().putString(getCommentDate(date),comment).apply();
+        mPreferences.edit().putString(getCommentDate(date), comment).apply();
     }
 
     public String getComment(Date date) {
-        return mPreferences.getString(getCommentDate(date),null);
+        return mPreferences.getString(getCommentDate(date), null);
     }
+
 }
