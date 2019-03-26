@@ -35,15 +35,13 @@ import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
-
-import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_COMMENT;
 
 public class MainActivity extends AppCompatActivity {
 
     public String comment;
+    public String temporaryComment;
     public static int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private ImageButton historyButton;
@@ -52,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     CustomSwipeAdapter adapter;
     private MySharedPreferences mPreferences;
     private Mood todayMood;
-    private Mood todayMoodForViewPager;
     public static Mood sadMood;
     public static Mood disappointedMood;
     public static Mood normalMood;
@@ -80,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         createMoods();
 
         mPreferences = new MySharedPreferences(getApplicationContext());
-        Date today = Calendar.getInstance().getTime();
         setDefaultMood();
 
         //Listener to get informed when user switch between smileys
@@ -95,9 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 currentSmileyPosition = position;
                 saveMood(currentSmileyPosition);
                 mPreferences.saveLastPositionForViewPager(currentSmileyPosition);
-                Log.e("TAG",mPreferences.getHistoryItem(today).getComment());
-                // Toast.makeText(MainActivity.this, "position: "+position, Toast.LENGTH_SHORT).show();  //Display currentPos, can be removed
                 changeBackground(todayMood);
+              //  Log.e("MOOD",mPreferences.getMood(today).name());
+              //  Log.e("COMMENT",mPreferences.getComment(today));
+
             }
 
             @Override
@@ -120,13 +117,12 @@ public class MainActivity extends AppCompatActivity {
                 saveComment(MainActivity.this);
             }
         });
-
+        //Display share interface
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
-                Date today = Calendar.getInstance().getTime();
                 String shareBody = "I'm feeling " + mPreferences.getMoodNameForSharing(currentSmileyPosition) + " today!";
                 shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                 shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
@@ -140,26 +136,24 @@ public class MainActivity extends AppCompatActivity {
         //Input message
         final EditText inputComment = new EditText(ctx);
 
-        AlertDialog.Builder addcomment = new AlertDialog.Builder(MainActivity.this);
-        addcomment.setTitle("Add comment");
-        addcomment.setMessage("Please enter your feelings");
-        addcomment.setView(inputComment);
-        addcomment.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder addcoment = new AlertDialog.Builder(MainActivity.this);
+        addcoment.setTitle("Add comment");
+        addcoment.setMessage("Please enter your feelings");
+        addcoment.setView(inputComment);
+        addcoment.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Date today = Calendar.getInstance().getTime();
                 //Save input into comment(String)
                 comment = String.valueOf(inputComment.getText());
-                //Save comment into prefs with date as key
-               // mPreferences.saveComment(today, comment);
-                mPreferences.getHistoryItem(today).setComment(comment);
-                Log.e("TAG",comment);
+                //Save comment into HistoryItem comment attribute with date as key
+                mPreferences.saveComment(today,comment);
                 Toast.makeText(MainActivity.this, "Comment saved", Toast.LENGTH_SHORT).show();
             }
         });
-        addcomment.setNegativeButton("Cancel", null);
-        addcomment.create();
-        addcomment.show();
+        addcoment.setNegativeButton("Cancel", null);
+        addcoment.create();
+        addcoment.show();
     }
 
     //Take currentSmileyPosition, convert it to corresponding mood then save it in prefs
@@ -185,19 +179,18 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         //Put todayMood in prefs
-       // mPreferences.saveMood(today, todayMood);
-        mPreferences.saveHistoryItem(today, todayMood);
+        mPreferences.saveMood(today,todayMood);
     }
 
     public void setDefaultMood() {
         Date today = Calendar.getInstance().getTime();
         //Set default position when launching app to HappySmiley (3), or last mood registered
 
-        if (mPreferences.getHistoryItem(today).getMood() == null) {
+        if (mPreferences.getMood(today) == null) {
 
             verticalViewPager.setCurrentItem(3);
             todayMood = happyMood;
-            mPreferences.saveHistoryItem(today, todayMood);
+            mPreferences.saveMood(today,todayMood);
         } else {
             //Get last smiley + last background color combo and show it even is app was closed.
             verticalViewPager.setCurrentItem(mPreferences.getLastPositionForViewPager());
@@ -221,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
         moodList.add(happyMood = new Mood(MoodEnum.Happy, 3, backGroundColors[3], smileysImages[3]));
         moodList.add(superHappyMood = new Mood(MoodEnum.SuperHappy, 4, backGroundColors[4], smileysImages[4]));
     }
+
 
 }
 
