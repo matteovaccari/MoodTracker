@@ -58,7 +58,6 @@ public class MySharedPreferences {
         Gson gson = new Gson();
         String json = mPreferences.getString(getMoodDate(date), null);
         historyItem = gson.fromJson(json, HistoryItem.class);
-//        Log.e("TAGOUTPUT", json);
         return historyItem;
     }
 
