@@ -43,7 +43,6 @@ import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_C
 public class MainActivity extends AppCompatActivity {
 
     public String comment;
-    public String temporaryComment;
     public static int currentSmileyPosition;
     VerticalViewPager verticalViewPager;
     private ImageButton historyButton;
@@ -81,9 +80,11 @@ public class MainActivity extends AppCompatActivity {
         createMoods();
 
         mPreferences = new MySharedPreferences(getApplicationContext());
+
         setDefaultMood();
+
         Date today = Calendar.getInstance().getTime();
-        Log.e("TAGMOOD",mPreferences.getMood2(today).getMood().name());
+        Log.e("TAGMOOD", mPreferences.getHistoryItem(today).getMood().name());
         //Listener to get informed when user switch between smileys
         verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -93,14 +94,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Date today = Calendar.getInstance().getTime();
-                todayHistoryItem = mPreferences.getMood2(today);
+                todayHistoryItem = mPreferences.getHistoryItem(today);
                 currentSmileyPosition = position;
                 setMood(currentSmileyPosition); // This is for implicit affection of todayMood var for changeBackGround method
                 mPreferences.saveLastPositionForViewPager(currentSmileyPosition);
                 changeBackground(todayMood);
                 updateTodayMood(today, setMood(currentSmileyPosition), mPreferences.getComment(today));
-                mPreferences.savemood2(today, todayHistoryItem);
-
+                mPreferences.saveHistoryItem(today, todayHistoryItem);
             }
 
             @Override
@@ -192,17 +192,18 @@ public class MainActivity extends AppCompatActivity {
         return todayMoodEnum;
     }
 
+    //Set default position when launching app to HappySmiley (3) by default, or last mood registered
     public void setDefaultMood() {
-        Date today = Calendar.getInstance().getTime();
-        //Set default position when launching app to HappySmiley (3), or last mood registered
 
-        if (mPreferences.getMood2(today) == null) {
+        Date today = Calendar.getInstance().getTime();
+
+        if (mPreferences.getHistoryItem(today) == null) {
 
             verticalViewPager.setCurrentItem(3);
             todayMood = happyMood;
             todayMoodEnum = MoodEnum.Happy;
             todayHistoryItem = new HistoryItem(today, todayMoodEnum, PREF_KEY_EMPTY_COMMENT);
-            mPreferences.savemood2(today, todayHistoryItem);
+            mPreferences.saveHistoryItem(today, todayHistoryItem);
 
         } else {
             //Get last smiley + last background color combo and show it even is app was closed.
@@ -220,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         mp.start();
     }
 
+    //Instanciate differents Mood and put them in moodList
     public void createMoods() {
         moodList.add(sadMood = new Mood(MoodEnum.Sad, 0, backGroundColors[0], smileysImages[0]));
         moodList.add(disappointedMood = new Mood(MoodEnum.Disappointed, 1, backGroundColors[1], smileysImages[1]));
@@ -233,10 +235,7 @@ public class MainActivity extends AppCompatActivity {
         todayHistoryItem.setMood(moodEnum);
         todayHistoryItem.setComment(comment);
     }
-    /*
-    public String updateComment(Date date) {
-        if (mPreferences.getComment(date) != null )
-    } */
+
 }
 
 
