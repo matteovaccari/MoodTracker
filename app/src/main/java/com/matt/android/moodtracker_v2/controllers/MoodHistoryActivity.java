@@ -81,7 +81,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         ImageButton[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
         Date today = Calendar.getInstance().getTime();
-        todayHistoryItem = mPreferences.getMood2(today);
+        todayHistoryItem = mPreferences.getHistoryItem(today);
         Log.e("TAG", todayHistoryItem.getMood().name());
 
         // Loop to display last 7 moods
@@ -105,7 +105,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         int width = size.x;
 
         //Get a HistoryItem from prefs to be displayed
-        todayHistoryItem = mPreferences.getMood2(date);
+        todayHistoryItem = mPreferences.getHistoryItem(date);
 
         if (todayHistoryItem == null || todayHistoryItem.getMood() == null) {
             relativeLayout.setBackgroundColor(0);
@@ -165,13 +165,13 @@ public class MoodHistoryActivity extends AppCompatActivity {
     public String getEmptyOrNotComment(Date date) {
 
         try {
-            mPreferences.getMood2(date).getComment();
+            mPreferences.getHistoryItem(date).getComment();
         } catch (NullPointerException e) {
             e.printStackTrace();
             return PREF_KEY_EMPTY_COMMENT;
         }
 
-        return mPreferences.getMood2(date).getComment();
+        return mPreferences.getHistoryItem(date).getComment();
 
     }
 
