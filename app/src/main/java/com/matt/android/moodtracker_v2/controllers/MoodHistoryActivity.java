@@ -22,16 +22,11 @@ import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.models.HistoryItem;
-import com.matt.android.moodtracker_v2.models.Mood;
-import com.matt.android.moodtracker_v2.models.MoodEnum;
 import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
-import static com.matt.android.moodtracker_v2.models.MoodEnum.*;
 import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_COMMENT;
 
 public class MoodHistoryActivity extends AppCompatActivity {
@@ -85,8 +80,9 @@ public class MoodHistoryActivity extends AppCompatActivity {
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
         ImageButton[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
-      /*  Date today = Calendar.getInstance().getTime();
-        todayHistoryItem = mPreferences.getMood2(today); */
+        Date today = Calendar.getInstance().getTime();
+        todayHistoryItem = mPreferences.getMood2(today);
+        Log.e("TAG", todayHistoryItem.getMood().name());
 
         // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
@@ -108,14 +104,12 @@ public class MoodHistoryActivity extends AppCompatActivity {
         }
         int width = size.x;
 
-        //Get a mood from prefs to be displayed
-
+        //Get a HistoryItem from prefs to be displayed
         todayHistoryItem = mPreferences.getMood2(date);
-     //   MoodEnum mood = mPreferences.getMood2(date).getMood();
-                                                         //HistoryItem Deserialized
-        if (todayHistoryItem.getMood() == null) {
+
+        if (todayHistoryItem == null || todayHistoryItem.getMood() == null) {
             relativeLayout.setBackgroundColor(0);
-        }  else {
+        } else {
             // Set background color and fraction for each mood case
             switch (todayHistoryItem.getMood()) {
                 case Sad:
@@ -167,6 +161,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         }
     }
 
+    //This is for preventing NullPointerException is comment is empty : PREF_KEY_EMPTY_COMMENT is replacing null
     public String getEmptyOrNotComment(Date date) {
 
         try {
