@@ -8,8 +8,6 @@
 
 package com.matt.android.moodtracker_v2.models;
 
-import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
-
 import java.util.Date;
 
 import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_COMMENT;
@@ -20,12 +18,14 @@ public class HistoryItem {
     private MoodEnum mood;
     private String comment;
 
+    //Constructor
     public HistoryItem(Date date, MoodEnum mood, String comment) {
         setMood(mood);
         setDate(date);
         setComment(comment);
     }
 
+    //Getters and setters
     public MoodEnum getMood() {
         return mood;
     }
@@ -46,6 +46,7 @@ public class HistoryItem {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
     public Date getDate() {
         return date;
     }
@@ -53,7 +54,6 @@ public class HistoryItem {
     public void setDate(Date date) {
         this.date = date;
     }
-
 
 
 }
