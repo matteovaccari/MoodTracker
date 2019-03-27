@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public static Mood normalMood;
     public static Mood happyMood;
     public static Mood superHappyMood;
+    public Boolean isDefaultMoodPresent = false;
     public static ArrayList<Mood> moodList = new ArrayList<>();
     private HistoryItem todayHistoryItem;
     private Integer[] backGroundColors = {R.color.faded_red, R.color.warm_grey, R.color.cornflower_blue_65, R.color.light_sage, R.color.banana_yellow};
@@ -197,13 +198,15 @@ public class MainActivity extends AppCompatActivity {
 
         Date today = Calendar.getInstance().getTime();
 
-        if (mPreferences.getHistoryItem(today) == null) {
+        if (mPreferences.getIsDefaultMoodPresent() == false) {
 
             verticalViewPager.setCurrentItem(3);
             todayMood = happyMood;
             todayMoodEnum = MoodEnum.Happy;
             todayHistoryItem = new HistoryItem(today, todayMoodEnum, PREF_KEY_EMPTY_COMMENT);
             mPreferences.saveHistoryItem(today, todayHistoryItem);
+            isDefaultMoodPresent = true;
+            mPreferences.saveIsDefaultMoodPresent(isDefaultMoodPresent);
 
         } else {
             //Get last smiley + last background color combo and show it even is app was closed.

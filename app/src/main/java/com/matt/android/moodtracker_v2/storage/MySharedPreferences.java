@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_COMMENT;
+import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_IS_DEFAULT_MOOD_PRESENT;
 import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_LAST_POS_VIEWPAGER;
 import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_NAME;
 
@@ -105,6 +106,14 @@ public class MySharedPreferences {
 
     public int getLastPositionForViewPager() {
         return mPreferences.getInt(PREF_KEY_LAST_POS_VIEWPAGER, -50);
+    }
+
+    public void saveIsDefaultMoodPresent(Boolean isdefaultmood) {
+        mPreferences.edit().putBoolean(PREF_KEY_IS_DEFAULT_MOOD_PRESENT, isdefaultmood).apply();
+    }
+
+    public Boolean getIsDefaultMoodPresent(){
+        return mPreferences.getBoolean(PREF_KEY_IS_DEFAULT_MOOD_PRESENT, false);
     }
 
 }

@@ -34,7 +34,6 @@ android {
 
 dependencies {
 
-    implementation "android.arch.work:work-runtime:1.0.0-alpha11" //WorkManager
     implementation 'com.google.code.gson:gson:2.6.2' //Gson
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible
