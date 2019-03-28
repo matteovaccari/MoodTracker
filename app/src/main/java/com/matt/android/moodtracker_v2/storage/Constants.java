@@ -13,6 +13,4 @@ public class Constants {
     public static final String PREF_KEY_NAME = "PREF_KEY_NAME";
     public static final String PREF_KEY_LAST_POS_VIEWPAGER = "PREF_KEY_LAST_POS_VIEWPAGER";
     public static final String PREF_KEY_IS_DEFAULT_MOOD_PRESENT = "PREF_KEY_IS_DEFAULT_MOOD_PRESENT";
-
-
 }

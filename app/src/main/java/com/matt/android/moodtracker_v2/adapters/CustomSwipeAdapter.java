@@ -17,14 +17,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.matt.android.moodtracker_v2.R;
-import com.matt.android.moodtracker_v2.models.HistoryItem;
 
 public class CustomSwipeAdapter extends PagerAdapter {
 
     private Context ctx;
     private LayoutInflater layoutInflater;
 
-    private int[] images_ressources = {R.drawable.smiley_sad,R.drawable.smiley_disappointed,
+    private int[] images_resources = {R.drawable.smiley_sad,R.drawable.smiley_disappointed,
             R.drawable.smiley_normal,R.drawable.smiley_happy,R.drawable.smiley_super_happy};
 
 
@@ -34,7 +33,7 @@ public class CustomSwipeAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return images_ressources.length;
+        return images_resources.length;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class CustomSwipeAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View item_view = layoutInflater.inflate(R.layout.swipe_layout, container, false);
         ImageView imageView = (ImageView) item_view.findViewById(R.id.swipe_layout_imageView_ID);
-        imageView.setImageResource(images_ressources[position]);
+        imageView.setImageResource(images_resources[position]);
         container.addView(item_view);
         return item_view;
     }
