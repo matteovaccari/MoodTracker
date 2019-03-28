@@ -30,7 +30,7 @@ import com.matt.android.moodtracker_v2.adapters.CustomSwipeAdapter;
 import com.matt.android.moodtracker_v2.models.HistoryItem;
 import com.matt.android.moodtracker_v2.models.Mood;
 import com.matt.android.moodtracker_v2.models.MoodEnum;
-import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
+import com.matt.android.moodtracker_v2.storage.SharedPreferencesManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton shareButton;
     private ImageButton commentButton;
     CustomSwipeAdapter adapter;
-    private MySharedPreferences mPreferences;
+    private SharedPreferencesManager mPreferences;
     private MoodEnum todayMoodEnum;
     private Mood todayMood;
     public static Mood sadMood;
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Mood> moodList = new ArrayList<>();
     private HistoryItem todayHistoryItem;
     private Integer[] backGroundColors = {R.color.faded_red, R.color.warm_grey, R.color.cornflower_blue_65, R.color.light_sage, R.color.banana_yellow};
-    private Integer[] smileysImages = {R.drawable.smiley_sad, R.drawable.smiley_disappointed, R.drawable.smiley_normal, R.drawable.smiley_happy, R.drawable.smiley_super_happy};
 
     @SuppressLint("ClickableViewAccessibility") //OnTouchListener
     @Override
@@ -74,18 +73,17 @@ public class MainActivity extends AppCompatActivity {
         shareButton = (ImageButton) findViewById(R.id.main_activity_share_button);
         verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
 
-        //Instanciate adapter then set it to verticalViewPager adapter attribute
+        //Instantiate adapter then set it to verticalViewPager adapter attribute
         adapter = new CustomSwipeAdapter(this);
         verticalViewPager.setAdapter(adapter);
 
+        //Instantiate different moods and add them to moodList
         createMoods();
 
-        mPreferences = new MySharedPreferences(getApplicationContext());
+        mPreferences = new SharedPreferencesManager(getApplicationContext());
 
         setDefaultMood();
 
-        Date today = Calendar.getInstance().getTime();
-        Log.e("TAGMOOD", mPreferences.getHistoryItem(today).getMood().name());
         //Listener to get informed when user switch between smileys
         verticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -95,9 +93,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Date today = Calendar.getInstance().getTime();
-                todayHistoryItem = mPreferences.getHistoryItem(today);
                 currentSmileyPosition = position;
-                setMood(currentSmileyPosition); // This is for implicit affection of todayMood var for changeBackGround method
+                //Set todayMoodEnum and todayMood variables to corresponding values via currentSmileyPos,
+                //todayMood is for changeBackground who take a Mood as argument
+                //todayMoodEnum is for saving a HistoryItem (Date, MOODENUM, comment)
+                setMood(currentSmileyPosition);
                 mPreferences.saveLastPositionForViewPager(currentSmileyPosition);
                 changeBackground(todayMood);
                 updateTodayMood(today, setMood(currentSmileyPosition), mPreferences.getComment(today));
@@ -193,22 +193,27 @@ public class MainActivity extends AppCompatActivity {
         return todayMoodEnum;
     }
 
-    //Set default position when launching app to HappySmiley (3) by default, or last mood registered
+    //Set default position when launching app
     public void setDefaultMood() {
 
         Date today = Calendar.getInstance().getTime();
 
-        if (mPreferences.getIsDefaultMoodPresent() == false) {
+        //If it's the first app run, we set default position to Happy (3)
+        if (!mPreferences.getIsDefaultMoodPresent()) {
 
             verticalViewPager.setCurrentItem(3);
             todayMood = happyMood;
             todayMoodEnum = MoodEnum.Happy;
             todayHistoryItem = new HistoryItem(today, todayMoodEnum, PREF_KEY_EMPTY_COMMENT);
+            Log.e("IS__MOOD_PRESENT_FALSE", todayHistoryItem.getDate().toString());
             mPreferences.saveHistoryItem(today, todayHistoryItem);
             isDefaultMoodPresent = true;
             mPreferences.saveIsDefaultMoodPresent(isDefaultMoodPresent);
 
+            //Else we set last mood position after run
         } else {
+            //Instanciate todayHistoryItem with yesterday's information
+            todayHistoryItem = new HistoryItem(getYesterdayDate(), mPreferences.getHistoryItem(getYesterdayDate()).getMood(), PREF_KEY_EMPTY_COMMENT);
             //Get last smiley + last background color combo and show it even is app was closed.
             verticalViewPager.setCurrentItem(mPreferences.getLastPositionForViewPager());
             ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
@@ -216,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Set background color depending on each Mood BackgroundColor attribute, then play a little "pop" sound at each slide
     public void changeBackground(Mood mood) {
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
 
@@ -224,19 +230,27 @@ public class MainActivity extends AppCompatActivity {
         mp.start();
     }
 
-    //Instanciate differents Mood and put them in moodList
+    //Instantiate different Mood and put them in moodList
     public void createMoods() {
-        moodList.add(sadMood = new Mood(MoodEnum.Sad, 0, backGroundColors[0], smileysImages[0]));
-        moodList.add(disappointedMood = new Mood(MoodEnum.Disappointed, 1, backGroundColors[1], smileysImages[1]));
-        moodList.add(normalMood = new Mood(MoodEnum.Normal, 2, backGroundColors[2], smileysImages[2]));
-        moodList.add(happyMood = new Mood(MoodEnum.Happy, 3, backGroundColors[3], smileysImages[3]));
-        moodList.add(superHappyMood = new Mood(MoodEnum.SuperHappy, 4, backGroundColors[4], smileysImages[4]));
+        moodList.add(sadMood = new Mood(MoodEnum.Sad, backGroundColors[0]));
+        moodList.add(disappointedMood = new Mood(MoodEnum.Disappointed, backGroundColors[1]));
+        moodList.add(normalMood = new Mood(MoodEnum.Normal, backGroundColors[2]));
+        moodList.add(happyMood = new Mood(MoodEnum.Happy, backGroundColors[3]));
+        moodList.add(superHappyMood = new Mood(MoodEnum.SuperHappy, backGroundColors[4]));
     }
 
+    //This method is called at each slide
     public void updateTodayMood(Date date, MoodEnum moodEnum, String comment) {
         todayHistoryItem.setDate(date);
         todayHistoryItem.setMood(moodEnum);
         todayHistoryItem.setComment(comment);
+    }
+
+    //This method is used in the else condition of setDefaultMood method
+    private Date getYesterdayDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime();
     }
 
 }
