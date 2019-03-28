@@ -11,7 +11,6 @@ package com.matt.android.moodtracker_v2.controllers;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,7 +21,7 @@ import android.widget.Toast;
 
 import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.models.HistoryItem;
-import com.matt.android.moodtracker_v2.storage.MySharedPreferences;
+import com.matt.android.moodtracker_v2.storage.SharedPreferencesManager;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +30,7 @@ import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_EMPTY_C
 
 public class MoodHistoryActivity extends AppCompatActivity {
 
-    private MySharedPreferences mPreferences;
+    private SharedPreferencesManager mPreferences;
     private HistoryItem todayHistoryItem;
 
     @Override
@@ -39,7 +38,7 @@ public class MoodHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood_history);
 
-        mPreferences = new MySharedPreferences(getApplicationContext());
+        mPreferences = new SharedPreferencesManager(getApplicationContext());
 
         //Each layout is a bar for each day
         RelativeLayout mDayOne = findViewById(R.id.activity_historic_day_one);
@@ -80,9 +79,9 @@ public class MoodHistoryActivity extends AppCompatActivity {
         RelativeLayout[] layouts = {mDayOne, mDayTwo, mDayThree, mDayFour, mDayFive, mDaySix, mDaySeven};
         ImageButton[] buttons = {mButtonOne, mButtonTwo, mButtonThree, mButtonFour, mButtonFive, mButtonSix, mButtonSeven};
 
+        //Pick up today's HistoryItem via preferences
         Date today = Calendar.getInstance().getTime();
         todayHistoryItem = mPreferences.getHistoryItem(today);
-        Log.e("TAG", todayHistoryItem.getMood().name());
 
         // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
@@ -150,6 +149,8 @@ public class MoodHistoryActivity extends AppCompatActivity {
         //If there's a comment, show comment button + can display message with Toast message
         if (comment.equalsIgnoreCase(PREF_KEY_EMPTY_COMMENT)) {
             button.setVisibility(View.INVISIBLE);
+            //Else, button stay invisible
+
         } else {
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(new View.OnClickListener() {
