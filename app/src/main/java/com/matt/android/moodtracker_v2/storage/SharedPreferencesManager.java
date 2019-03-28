@@ -23,13 +23,13 @@ import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_IS_DEFA
 import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_LAST_POS_VIEWPAGER;
 import static com.matt.android.moodtracker_v2.storage.Constants.PREF_KEY_NAME;
 
-public class MySharedPreferences {
+public class SharedPreferencesManager {
 
     private HistoryItem historyItem;
     private SharedPreferences mPreferences;
     private String moodInStringForShare;
 
-    public MySharedPreferences(Context context) {
+    public SharedPreferencesManager(Context context) {
         mPreferences = context.getSharedPreferences(PREF_KEY_NAME, Context.MODE_PRIVATE);
     }
 
@@ -99,7 +99,7 @@ public class MySharedPreferences {
         return moodInStringForShare;
     }
 
-    //The next methods are for displaying correct last page at each run
+    //The next two methods are for displaying correct last page at each run
     public void saveLastPositionForViewPager(int smileyPos) {
         mPreferences.edit().putInt(PREF_KEY_LAST_POS_VIEWPAGER, smileyPos).apply();
     }
@@ -108,11 +108,12 @@ public class MySharedPreferences {
         return mPreferences.getInt(PREF_KEY_LAST_POS_VIEWPAGER, -50);
     }
 
-    public void saveIsDefaultMoodPresent(Boolean isdefaultmood) {
-        mPreferences.edit().putBoolean(PREF_KEY_IS_DEFAULT_MOOD_PRESENT, isdefaultmood).apply();
+    //The next two methods are for checking if app is run for the first time
+    public void saveIsDefaultMoodPresent(Boolean isDefaultMood) {
+        mPreferences.edit().putBoolean(PREF_KEY_IS_DEFAULT_MOOD_PRESENT, isDefaultMood).apply();
     }
 
-    public Boolean getIsDefaultMoodPresent(){
+    public Boolean getIsDefaultMoodPresent() {
         return mPreferences.getBoolean(PREF_KEY_IS_DEFAULT_MOOD_PRESENT, false);
     }
 
