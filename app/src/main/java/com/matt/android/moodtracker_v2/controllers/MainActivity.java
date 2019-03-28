@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
-                String shareBody = "I'm feeling " + mPreferences.getMoodNameForSharing(currentSmileyPosition) + " today!";
+                String shareBody = mPreferences.getMoodNameForSharing(currentSmileyPosition);
                 shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                 shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(shareIntent, "Share via"));

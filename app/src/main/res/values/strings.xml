@@ -8,4 +8,9 @@
     <string name="day_3">Three days ago</string>
     <string name="day_2">Two days ago</string>
     <string name="day_1">Yesterday</string>
+    <string name="sad_Mood">I\'m feeling sad today!</string>
+    <string name="disappointed_Mood">I\'m feeling disappointed today!</string>
+    <string name="normal_Mood">I\'m feeling normal today!</string>
+    <string name="happy_Mood">I\'m feeling happy today!</string>
+    <string name="super_Happy_Mood">I\'m feeling super happy today!</string>
 </resources>

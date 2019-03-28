@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.matt.android.moodtracker_v2.R;
 import com.matt.android.moodtracker_v2.models.HistoryItem;
 import com.google.gson.Gson;
 
@@ -28,9 +29,11 @@ public class SharedPreferencesManager {
     private HistoryItem historyItem;
     private SharedPreferences mPreferences;
     private String moodInStringForShare;
+    private Context context;
 
     public SharedPreferencesManager(Context context) {
         mPreferences = context.getSharedPreferences(PREF_KEY_NAME, Context.MODE_PRIVATE);
+        this.context = context;
     }
 
     public String getMoodDate(Date date) {
@@ -81,19 +84,19 @@ public class SharedPreferencesManager {
 
         switch (currentPos) {
             case 0:
-                moodInStringForShare = "sad";
+                moodInStringForShare  = context.getResources().getString(R.string.sad_Mood);
                 break;
             case 1:
-                moodInStringForShare = "dissapointed";
+                moodInStringForShare = context.getResources().getString(R.string.disappointed_Mood);
                 break;
             case 2:
-                moodInStringForShare = "normal";
+                moodInStringForShare = context.getResources().getString(R.string.normal_Mood);
                 break;
             case 3:
-                moodInStringForShare = "happy";
+                moodInStringForShare = context.getResources().getString(R.string.happy_Mood);
                 break;
             case 4:
-                moodInStringForShare = "super happy";
+                moodInStringForShare = context.getResources().getString(R.string.super_Happy_Mood);
                 break;
         }
         return moodInStringForShare;
