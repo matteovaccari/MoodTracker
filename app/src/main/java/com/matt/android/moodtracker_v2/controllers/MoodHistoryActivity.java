@@ -136,9 +136,6 @@ public class MoodHistoryActivity extends AppCompatActivity {
                             LinearLayout.LayoutParams.MATCH_PARENT, 1));
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
                     break;
-                default:
-                    relativeLayout.setBackgroundColor(0);
-                    break;
             }
         }
     }
