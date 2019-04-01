@@ -82,7 +82,6 @@ public class MoodHistoryActivity extends AppCompatActivity {
         //Pick up today's HistoryItem via preferences
         Date today = Calendar.getInstance().getTime();
         todayHistoryItem = mPreferences.getHistoryItem(today);
-
         // Loop to display last 7 moods
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < 7; i++) {
@@ -141,13 +140,13 @@ public class MoodHistoryActivity extends AppCompatActivity {
     }
 
     public void displayComment(Date date, ImageButton button) {
-        final String comment = getEmptyOrNotComment(date);
+        final String comment = mPreferences.getComment(date);
 
-        //If there's a comment, show comment button + can display message with Toast message
-        if (comment.equalsIgnoreCase(PREF_KEY_EMPTY_COMMENT)) {
+        //If there's no comment, button stay invisible
+        if (comment == null || comment.equals(PREF_KEY_EMPTY_COMMENT)) {
             button.setVisibility(View.INVISIBLE);
-            //Else, button stay invisible
 
+            //Else, show comment button + can display message with Toast message
         } else {
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(new View.OnClickListener() {
@@ -158,19 +157,6 @@ public class MoodHistoryActivity extends AppCompatActivity {
             });
         }
     }
-
-    //This is for preventing NullPointerException is comment is empty : PREF_KEY_EMPTY_COMMENT is replacing null
-    public String getEmptyOrNotComment(Date date) {
-
-        try {
-            mPreferences.getHistoryItem(date).getComment();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            return PREF_KEY_EMPTY_COMMENT;
-        }
-
-        return mPreferences.getHistoryItem(date).getComment();
-
-    }
-
 }
+
+

@@ -23,8 +23,8 @@ public class CustomSwipeAdapter extends PagerAdapter {
     private Context ctx;
     private LayoutInflater layoutInflater;
 
-    private int[] images_resources = {R.drawable.smiley_sad,R.drawable.smiley_disappointed,
-            R.drawable.smiley_normal,R.drawable.smiley_happy,R.drawable.smiley_super_happy};
+    private int[] images_resources = {R.drawable.smiley_sad, R.drawable.smiley_disappointed,
+            R.drawable.smiley_normal, R.drawable.smiley_happy, R.drawable.smiley_super_happy};
 
 
     public CustomSwipeAdapter(Context ctx) {

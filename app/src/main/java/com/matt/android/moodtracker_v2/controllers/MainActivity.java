@@ -19,7 +19,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -94,10 +93,11 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 Date today = Calendar.getInstance().getTime();
                 currentSmileyPosition = position;
-                //Set todayMoodEnum and todayMood variables to corresponding values via currentSmileyPos,
+                //setMood() set todayMoodEnum and todayMood variables to corresponding values via currentSmileyPos,
                 //todayMood is for changeBackground who take a Mood as argument
                 //todayMoodEnum is for saving a HistoryItem (Date, MOODENUM, comment)
                 setMood(currentSmileyPosition);
+                //This is for retrieve last Smiley pos at each run and show it
                 mPreferences.saveLastPositionForViewPager(currentSmileyPosition);
                 changeBackground(todayMood);
                 updateTodayMood(today, setMood(currentSmileyPosition), mPreferences.getComment(today));
@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 comment = String.valueOf(inputComment.getText());
                 //Save comment into HistoryItem comment attribute with date as key
                 mPreferences.saveComment(today, comment);
+                updateTodayMood(today, setMood(currentSmileyPosition), comment);
                 Toast.makeText(MainActivity.this, "Comment saved", Toast.LENGTH_SHORT).show();
             }
         });
@@ -202,18 +203,22 @@ public class MainActivity extends AppCompatActivity {
         if (!mPreferences.getIsDefaultMoodPresent()) {
 
             verticalViewPager.setCurrentItem(3);
+            mPreferences.saveLastPositionForViewPager(3);
+            //TodayMood (Mood) is for changeBackground method
             todayMood = happyMood;
+            //TodayMoodEnum (MoodEnum) is for HistoryItem mood attribute
             todayMoodEnum = MoodEnum.Happy;
+            //Instantiate + save first run HistoryItem with default Mood and empty comment
             todayHistoryItem = new HistoryItem(today, todayMoodEnum, PREF_KEY_EMPTY_COMMENT);
-            Log.e("IS__MOOD_PRESENT_FALSE", todayHistoryItem.getDate().toString());
             mPreferences.saveHistoryItem(today, todayHistoryItem);
+            //Boolean that know if it's first run for app or not
             isDefaultMoodPresent = true;
             mPreferences.saveIsDefaultMoodPresent(isDefaultMoodPresent);
 
             //Else we set last mood position after run
         } else {
             //Instanciate todayHistoryItem with yesterday's information
-            todayHistoryItem = new HistoryItem(getYesterdayDate(), mPreferences.getHistoryItem(getYesterdayDate()).getMood(), PREF_KEY_EMPTY_COMMENT);
+            todayHistoryItem = new HistoryItem(today, setMood(mPreferences.getLastPositionForViewPager()), mPreferences.getComment(today));
             //Get last smiley + last background color combo and show it even is app was closed.
             verticalViewPager.setCurrentItem(mPreferences.getLastPositionForViewPager());
             ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
@@ -245,14 +250,6 @@ public class MainActivity extends AppCompatActivity {
         todayHistoryItem.setMood(moodEnum);
         todayHistoryItem.setComment(comment);
     }
-
-    //This method is used in the else condition of setDefaultMood method
-    private Date getYesterdayDate() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        return cal.getTime();
-    }
-
 }
 
 

@@ -44,6 +44,7 @@ public class SharedPreferencesManager {
     public void saveHistoryItem(Date date, HistoryItem historyItem) {
         Gson gson = new Gson();
         String jsonHistoryItem;
+
         // HistoryItem --> Json String
         if (historyItem.getComment() != null || historyItem.getComment() != PREF_KEY_EMPTY_COMMENT) {
             jsonHistoryItem = gson.toJson(historyItem, HistoryItem.class);
@@ -55,7 +56,6 @@ public class SharedPreferencesManager {
         }
 
         mPreferences.edit().putString(getMoodDate(date), jsonHistoryItem).apply();
-        Log.e("TAGINPUT", jsonHistoryItem);
     }
 
     public HistoryItem getHistoryItem(Date date) {
@@ -76,7 +76,8 @@ public class SharedPreferencesManager {
     }
 
     public String getComment(Date date) {
-        return mPreferences.getString(getCommentDate(date), null);
+        return mPreferences.getString(getCommentDate(date), PREF_KEY_EMPTY_COMMENT);
+
     }
 
     //This is for default text set when sharing mood

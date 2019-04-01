@@ -35,13 +35,9 @@ public class HistoryItem {
     }
 
     public String getComment() {
-        if (comment != null) {
-            return comment;
-        } else {
-            return PREF_KEY_EMPTY_COMMENT;
-        }
-
+        return comment;
     }
+
 
     public void setComment(String comment) {
         this.comment = comment;

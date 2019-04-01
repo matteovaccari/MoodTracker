@@ -18,10 +18,7 @@ public class Mood {
         setBackgroundColor(backgroundColor);
     }
 
-    /*
-    Getters and setters..
-     */
-
+    //Getters and setters
     public int getBackgroundColor() {
         return backgroundColor;
     }
